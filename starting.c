@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:29:58 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 15:18:12 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/18 15:49:42 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,28 @@
 #include "./libft/libft.h"
 #include "fdf.h"
 
+//gcc *.c ./get_next_line/*.c ./libft/*.c
 
-void fill(variables **var,char *line,int lines, int len)
+void	printall(int *var, int lines, int len)
+{
+	int n;
+	int x;
+
+	x = 0;
+	while (x < lines)
+	{
+		n = 0;
+		while (n < len)
+		{
+			printf("%d", var[n + (x * len)]);
+			++n;
+		}
+		printf("\n");
+		++x;
+	}
+}
+
+void	fill(int **var,char *line,int lines, int len)
 {
 	char **splited;
 	int x;
@@ -30,13 +50,8 @@ void fill(variables **var,char *line,int lines, int len)
 	while (splited[x])
 	{
 		add = ft_atoi(splited[x]);
-		var[x + (lines * len)]->x = x;
-		var[x + (lines * len)]->y = lines;
-		var[x + (lines * len)]->z = add;
-		if (add)
-			var[x + (lines * len)]->active = 1;
-		else
-			var[x + (lines * len)]->active = 0;
+		printf("lines len atoi %d %d %d\n",lines, len, add);
+		(*var)[x + (lines * len)] = add;
 		++x;
 	}
 }
@@ -52,10 +67,9 @@ int	data(char *line)
 		return (0);
 	while (splited[n])
 	{
-		printf("%s ",splited[n]);
 		++n;
 	}
-	printf("\n");
+	printf("end of data\n");
 	return (n);
 }
 
@@ -65,7 +79,8 @@ int main (void)
 	char	*line;
 	int		lines;
 	int		len;
-	variables *var;
+	int		*var;
+	int		*activate;
 
 	lines = 0;
 	fd = open("./test_maps/42.fdf", O_RDONLY);
@@ -77,15 +92,19 @@ int main (void)
 		++lines;
 	}
 	close(fd);
-	var = malloc(lines * len * sizeof(variables));
+	var = malloc(lines * len * sizeof(int));
+	activate = malloc(lines * len * sizeof(int));
 	fd = open("./test_maps/42.fdf", O_RDONLY);
 	line = get_next_line(fd);
 	lines = 0;
 	while (line)
 	{
 		fill(&var, line, lines, len);
+		//envoyer lines et len en struct pour pouvoir creer la deuxieme string 
 		line = get_next_line(fd);
 		++lines;
 	}
+	printf("end of fill\n");
+	printall(var, lines, len);
 	return (0);
 }
