@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/15 16:10:17 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/15 18:55:50 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	len;
-	int	lines;
-}	s_leng;
-
-#endif
+	if (*lst)
+		new->next = *lst;
+	*lst = new;
+}

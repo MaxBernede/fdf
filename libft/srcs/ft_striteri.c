@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/11 15:51:03 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/11 15:57:09 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int	len;
-	int	lines;
-}	s_leng;
+	unsigned int	i;
 
-#endif
+	i = 0;
+	if (!s || !f)
+		return ;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		++i;
+	}
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:59:25 by mbernede          #+#    #+#             */
-/*   Updated: 2022/10/15 18:15:14 by mbernede         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:38:54 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+
+# include <stdio.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <fcntl.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+char	*get_next_line(int fd);
+int		ft_strlengnl(char *str);
+char	*ft_memmovegnl(char *dest, char *src, int n);
+char	*coppygnl(char *str, char *tempread, int i);
+char	*returned(char *str);
 
 typedef struct s_list
 {

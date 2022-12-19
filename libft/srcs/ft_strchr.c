@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/04 12:57:20 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/15 18:57:35 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+char	*ft_strchr(const char *s, int c)
 {
-	int	len;
-	int	lines;
-}	s_leng;
+	char	*ptr;
 
-#endif
+	ptr = (char *)s;
+	while (*ptr)
+	{
+		if (*ptr == (char)c)
+			return (ptr);
+		ptr++;
+	}
+	if (*ptr == (char)c)
+		return (ptr);
+	return (NULL);
+}

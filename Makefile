@@ -5,40 +5,49 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/15 18:33:53 by kyuuh             #+#    #+#              #
-#    Updated: 2022/12/16 15:27:24 by kyuuh            ###   ########.fr        #
+#    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
+#    Updated: 2022/12/19 11:49:51 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS 	:= 		starting.c\
-				get_next_line/get_next_line.c\
-				get_next_line/get_next_line_utils.c\
+SRCS 	:= 		starting.c
 
 RM 		:= 		rm -f
 
 NAME	:=		fdf
 
-#CFLAGS	:=		-Wall -Werror -Wextra
+CFLAGS	:=		-Wall -Werror -Wextra
 
 CC		:= 		cc
 
-OBJ 	:= 		${SRCS:.c=.o}
+OBJ_DIR	:=		./objs/
 
-AR 		:= 		ar	-rs
+SRC_DIR	:=		./srcs/
 
-$(NAME): arc $(OBJ)
-	@$(CC) -o $@ -I -L./libft/libft -l./libft/libft.a $(OBJ)
+LIBA	:=	libft/libft.a
+LIBH	:=	libft/libft.h
 
-arc :
-	@make -C ./libft/
+OBJ 	:= 		$(addprefix ${OBJ_DIR},${SRCS:.c=.o})
+
+${NAME}:	${OBJ}
+	@make -C libft
+	@$(CC) -o $@ $^ $(LIBA)
+	@echo "SUCCESS"
 
 all : ${NAME}
 
+${OBJ_DIR}%.o:	${SRC_DIR}%.c $(LIBH) fdf.h
+	@${CC} ${CFLAGS} -o $@ -c $<
+
 clean: 
-	${RM} ${OBJ} && make clean -C ./libft
+	@make -C libft clean
+	@${RM} ${OBJ}
+	@echo "test cleaned"
 
 fclean: 	clean
-	${RM} ${NAME} && make fclean -C ./libft
+	@make -C libft fclean
+	@${RM} ${NAME}
+	@echo "full clean done"
 
 re: 	fclean all
 

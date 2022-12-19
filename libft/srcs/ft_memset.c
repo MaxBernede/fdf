@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/03 16:48:52 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/15 18:56:53 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int	len;
-	int	lines;
-}	s_leng;
+	char	*ptr;
+	size_t	i;
 
-#endif
+	ptr = (char *)s;
+	i = 0;
+	while (i < n)
+	{
+		ptr[i] = c;
+		++i;
+	}
+	return (ptr);
+}

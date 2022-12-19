@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/15 16:21:43 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/15 16:33:55 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	len;
-	int	lines;
-}	s_leng;
+	t_list	*ptrlst;
 
-#endif
+	if (!lst || !new)
+		return ;
+	if (*lst)
+	{
+		ptrlst = ft_lstlast(*lst);
+		ptrlst->next = new;
+	}
+	else
+		*lst = new;
+}

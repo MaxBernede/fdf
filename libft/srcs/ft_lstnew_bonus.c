@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbernede <mbernede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:20 by kyuuh            ###   ########.fr       */
+/*   Created: 2022/10/13 18:26:14 by mbernede          #+#    #+#             */
+/*   Updated: 2022/10/15 18:56:11 by mbernede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-typedef struct leng
+t_list	*ft_lstnew(void *content)
 {
-	int	len;
-	int	lines;
-}	s_leng;
+	t_list	*ptrlist;
 
-#endif
+	ptrlist = (t_list *)malloc(sizeof(*ptrlist));
+	if (!ptrlist)
+		return (NULL);
+	ptrlist->content = content;
+	ptrlist->next = NULL;
+	return (ptrlist);
+}
