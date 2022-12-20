@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 12:23:36 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:30:48 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,17 @@
 #include "../libft/libft.h"
 #include "../fdf.h"
 
-void	printcoor(coords coor, int lines, int len)
+void	printcoor(coords *coor, s_leng leng)
 {
-	int	n;
-	int	x;
+	int max;
+	int i;
 
-	x = 0;
-	while (x < lines)
+	i = 0;
+	max = leng.lines * leng.len;
+	while (i < max)
 	{
-		n = 0;
-		while (n < len)
-		{
-			printf("%d", var[n + (x * len)]);
-			++n;
-		}
-		printf("\n");
-		++x;
+		printf("x : %d  y : %d  z :  %d\n", coor[i].x, coor[i].y, coor[i].z);
+		++i;
 	}
 }
 
@@ -122,6 +117,6 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	fill(&coor, argv[1], leng);
-	printcoor(coor);
+	printcoor(coor, leng);
 	return (0);
 }
