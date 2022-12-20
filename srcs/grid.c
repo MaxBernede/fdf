@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 16:27:51 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 18:32:48 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 23:29:59 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int mathy(coords **coor, int i, int x, s_leng leng)
 
 	y = (float)(*coor)[i - leng.len].gridy - (float)(*coor)[i].gridy;
 	m = (float)(*coor)[i - leng.len].gridx - (float)(*coor)[i].gridx;
-	total = y / m;
+	total = m / y;
 	o = total * x;
 	return (o);
 }
