@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 18:31:37 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 18:35:48 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		while (x < leng.len)
 		{
 			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y*leng.len)].gridy = y * scale + (x * scale);
-			//- (*coor)[x + (y * leng.len)].y * 10
+			(*coor)[x + (y*leng.len)].gridy = y * scale + (x * scale) - (*coor)[x + (y * leng.len)].y * 10;
 			++x;
 		}
 		++y;
@@ -65,7 +64,6 @@ void	linex(mlx_t	*mlx, coords **coor, int i)
 	{
 		ymath = mathx(coor, i, x);
 		mlx_image_to_window(mlx, g_img, x + (*coor)[i].gridx + OFX, (*coor)[i].gridy + ymath + OFY);
-		//mlx_image_to_window(mlx, g_img, x + (*coor)[i].gridx + OFX, (*coor)[i].gridy + HEIGHT/3);
 		++x;
 	}
 }
