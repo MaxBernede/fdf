@@ -6,12 +6,13 @@
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
-#    Updated: 2022/12/20 14:06:13 by kyuuh            ###   ########.fr        #
+#    Updated: 2022/12/20 16:28:45 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 	:= 		main.c\
-				second.c
+				second.c\
+				grid.c
 
 RM 		:= 		rm -f
 

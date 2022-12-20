@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 14:56:33 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 17:23:52 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	hook(void *param)
 		g_img->instances[0].x += 5;
 }
 
-//change gridxy for real y coordinates
+//*10 is the amount of power of the value changed
 void	gridxy(coords **coor, s_leng leng, int scale)
 {
 	int y;
@@ -47,10 +47,37 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		while (x < leng.len)
 		{
 			(*coor)[x + (y*leng.len)].gridx = x * scale;
-			(*coor)[x + (y*leng.len)].gridy = y * scale;
+			(*coor)[x + (y*leng.len)].gridy = y * scale - (*coor)[x + (y * leng.len)].y * 10;
 			++x;
 		}
 		++y;
+	}
+}
+
+void	linex(mlx_t	*mlx, coords **coor, int i)
+{
+	int x;
+	int ymath;
+
+	x = 0;
+	while ((x + (*coor)[i].gridx) < (*coor)[i + 1].gridx)
+	{
+		ymath = mathx(coor, i, x);
+		mlx_image_to_window(mlx, g_img, x + (*coor)[i].gridx + WIDTH/3, (*coor)[i].gridy + ymath + HEIGHT/3);
+		//mlx_image_to_window(mlx, g_img, x + WIDTH/3, (*coor)[i].gridy + HEIGHT/3);
+		++x;
+	}
+}
+
+void	liney(mlx_t	*mlx, coords **coor, int i, s_leng leng)
+{
+	int y;
+
+	y = (*coor)[i].gridy;
+	while (y > (*coor)[i - leng.len].gridy)
+	{
+		mlx_image_to_window(mlx, g_img, (*coor)[i].gridx + WIDTH/3, y + HEIGHT/3);
+		--y;
 	}
 }
 
@@ -61,6 +88,10 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx)
 	i = 0;
 	while (i < (leng.len * leng.lines))
 	{
+		if ((*coor)[i].x < leng.len)
+			linex(mlx, coor, i);
+		if ((*coor)[i].z != 0)
+			liney(mlx, coor, i, leng);
 		mlx_image_to_window(mlx, g_img, (*coor)[i].gridx + WIDTH/3, (*coor)[i].gridy + HEIGHT/3);
 		++i;
 	}
