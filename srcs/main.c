@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 14:13:50 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 14:21:53 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ int main(int argc, char **argv)
 	fill(&coor, argv[1], leng);
 	gridxy(&coor, leng, SCALE);
 	printcoor(coor, leng);
+	screen(&coor, leng);
 	return (0);
 }
