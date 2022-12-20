@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 16:57:39 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 18:31:25 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #define WIDTH 1080
 #define HEIGHT 1080
+#define OFX WIDTH/2
+#define OFY HEIGHT/3
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -40,5 +42,6 @@ void	gridxy(coords **coor, s_leng leng, int scale);
 int		screen(coords **coor, s_leng leng);
 void	gridline(coords **coor, s_leng leng, mlx_t	*mlx);
 int		mathx(coords **coor, int i, int x);
+int		mathy(coords **coor, int i, int x, s_leng leng);
 
 #endif
