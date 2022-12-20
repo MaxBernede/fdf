@@ -6,11 +6,12 @@
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
-#    Updated: 2022/12/20 11:46:55 by kyuuh            ###   ########.fr        #
+#    Updated: 2022/12/20 14:06:13 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS 	:= 		main.c
+SRCS 	:= 		main.c\
+				second.c
 
 RM 		:= 		rm -f
 
@@ -34,7 +35,7 @@ OBJ 	:= 		$(addprefix ${OBJ_DIR},${SRCS:.c=.o})
 
 ${NAME}:	${OBJ}
 	@make -C libft
-	@$(CC) -o $@ $^ $(LIBA)
+	@$(CC) -o $@ $^ $(LIBA) $(LIBMLX) $(MLXFLAG) 
 	@echo "SUCCESS"
 
 all : ${NAME}

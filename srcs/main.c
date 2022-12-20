@@ -6,13 +6,15 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 12:30:48 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/20 14:13:50 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "../libft/libft.h"
 #include "../fdf.h"
+#include "../MLX42/include/MLX42/MLX42.h"
+#define SCALE 30
 
 void	printcoor(coords *coor, s_leng leng)
 {
@@ -23,7 +25,8 @@ void	printcoor(coords *coor, s_leng leng)
 	max = leng.lines * leng.len;
 	while (i < max)
 	{
-		printf("x : %d  y : %d  z :  %d\n", coor[i].x, coor[i].y, coor[i].z);
+		//printf("x : %d  y : %d  z :  %d\n", coor[i].x, coor[i].y, coor[i].z);
+		printf("x : %d  y : %d\n", coor[i].gridx, coor[i].gridy);
 		++i;
 	}
 }
@@ -117,6 +120,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	fill(&coor, argv[1], leng);
+	gridxy(&coor, leng, SCALE);
 	printcoor(coor, leng);
 	return (0);
 }
