@@ -6,17 +6,17 @@
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
-#    Updated: 2022/12/19 11:49:51 by kyuuh            ###   ########.fr        #
+#    Updated: 2022/12/20 11:46:55 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS 	:= 		starting.c
+SRCS 	:= 		main.c
 
 RM 		:= 		rm -f
 
 NAME	:=		fdf
 
-CFLAGS	:=		-Wall -Werror -Wextra
+#CFLAGS	:=		-Wall -Werror -Wextra
 
 CC		:= 		cc
 
@@ -26,6 +26,9 @@ SRC_DIR	:=		./srcs/
 
 LIBA	:=	libft/libft.a
 LIBH	:=	libft/libft.h
+
+LIBMLX	:=	MLX42/libmlx42.a
+MLXFLAG	:=	-ldl -lglfw -lm -pthread -I MLX42/include
 
 OBJ 	:= 		$(addprefix ${OBJ_DIR},${SRCS:.c=.o})
 
