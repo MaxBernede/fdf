@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/20 23:25:21 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:47:55 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		x = 0;
 		while (x < leng.len)
 		{
-			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y*leng.len)].gridy = y * scale + (x * scale) - (*coor)[x + (y * leng.len)].y * 10;
+			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale) * 0.5;
+			(*coor)[x + (y*leng.len)].gridy = y * scale/2 + (x * scale / 2) - (*coor)[x + (y * leng.len)].y * 3;
 			++x;
 		}
 		++y;
@@ -60,11 +60,14 @@ void	linex(mlx_t	*mlx, coords **coor, int i)
 	int ymath;
 
 	x = 0;
-	while ((x + (*coor)[i].gridx) < (*coor)[i + 1].gridx)
+	while ((x + (*coor)[i].gridx) != (*coor)[i + 1].gridx)
 	{
 		ymath = mathx(coor, i, x);
 		mlx_image_to_window(mlx, g_img, x + (*coor)[i].gridx + OFX, (*coor)[i].gridy + ymath + OFY);
-		++x;
+		if ((*coor)[i].gridx < (*coor)[i + 1].gridx)
+			++x;
+		else
+			--x;
 	}
 }
 
@@ -74,11 +77,14 @@ void	liney(mlx_t	*mlx, coords **coor, int i, s_leng leng)
 	int xmath;
 
 	y = 0;
-	while ((y + (*coor)[i].gridy) > (*coor)[i - leng.len].gridy)
+	while ((y + (*coor)[i].gridy) != (*coor)[i - leng.len].gridy)
 	{
 		xmath = mathy(coor, i, y, leng);
 		mlx_image_to_window(mlx, g_img, (*coor)[i].gridx + xmath + OFX, y + (*coor)[i].gridy + OFY);
-		--y;
+		if ((*coor)[i].gridy > (*coor)[i - leng.len].gridy)
+			--y;
+		else
+			++y;
 	}
 }
 
@@ -88,9 +94,10 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx)
 	int i;
 
 	i = 0;
+	printf("entree\n");
 	while (i < (leng.len * leng.lines))
 	{
-		if ((*coor)[i].x < leng.len)
+		if ((*coor)[i].x + 1 < leng.len)
 			linex(mlx, coor, i);
 		if ((*coor)[i].z != 0)
 			liney(mlx, coor, i, leng);
