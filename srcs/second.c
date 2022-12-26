@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/21 09:47:55 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/26 17:03:27 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		x = 0;
 		while (x < leng.len)
 		{
-			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale) * 0.5;
-			(*coor)[x + (y*leng.len)].gridy = y * scale/2 + (x * scale / 2) - (*coor)[x + (y * leng.len)].y * 3;
+			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
+			(*coor)[x + (y*leng.len)].gridy = y * scale/2 + (x * scale / 2) - (*coor)[x + (y * leng.len)].y * 5;
 			++x;
 		}
 		++y;
@@ -106,17 +106,39 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx)
 	}
 }
 
+// void	printscreen(mlx_t	*mlx;)
+// {
+// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+// 	{
+// 		mlx_close_window(mlx);
+// 		return ;
+// 	}
+// 	mlx_loop_hook(mlx, &hook, mlx);
+// 	mlx_loop(mlx);
+// }
+
 //MAIN FOR MLX42
 int	screen(coords **coor, s_leng leng)
 {
 	mlx_t	*mlx;
+	mlx_image_t	*background;
 
+
+	gridxy(coor, leng, 30);
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		return (0);
+
+	background = mlx_new_image(mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(mlx, background, 0, 0);
+	memset(background->pixels, 100, background->width * background->height * sizeof(int));
+
 	g_img = mlx_new_image(mlx, 1, 1);
+	mlx_image_to_window(mlx, g_img,OFX - 10,OFY - 10);
 	memset(g_img->pixels, 255, g_img->width * g_img->height * sizeof(int));
+	mlx_put_pixel(g_img, OFX - 10, OFY - 10, 0xd7adad);
 	gridline(coor, leng, mlx);
+	// printscreen(mlx);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 00:40:08 by W2Wizard          #+#    #+#             */
-/*   Updated: 2022/12/20 10:29:03 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/26 16:57:23 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,20 @@ int32_t	main(void)
 {
 	mlx_t	*mlx;
 	int i;
+	mlx_image_t	*background;
 
 	i = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		exit(EXIT_FAILURE);
-	g_img = mlx_new_image(mlx, 180, 180);
+	background = mlx_new_image(mlx, WIDTH, HEIGHT);
+	memset(background->pixels, 150, background->width * background->height * sizeof(int));
+	g_img = mlx_new_image(mlx, WIDTH/2, HEIGHT/2);
 	memset(g_img->pixels, 255, g_img->width * g_img->height * sizeof(int));
-	while (i < WIDTH)
-	{
-		mlx_image_to_window(mlx, g_img, i, 10);
-		i += 10;
-	}
+	mlx_image_to_window(mlx, background, 0, 0);
+	mlx_image_to_window(mlx, g_img, WIDTH/4, HEIGHT/4);
+	while (++i < WIDTH)
+		mlx_put_pixel(g_img, i, 10, 0xd7adad);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
