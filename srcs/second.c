@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/30 17:12:29 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/30 18:41:31 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,11 @@ void	hook(void *param)
 		g_img->instances[0].x -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		g_img->instances[0].x += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_J))
+		printf("Hello ");
 }
 
-//*10 is the amount of power of the value changed
-void	gridxy(coords **coor, s_leng leng, int scale)
-{
-	int y;
-	int x;
-
-	y = 0;
-	while (y < leng.lines)
-	{
-		x = 0;
-		while (x < leng.len)
-		{
-			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y*leng.len)].gridy = y * scale/2 + (x * scale / 2) - (*coor)[x + (y * leng.len)].y * 5;
-			++x;
-		}
-		++y;
-	}
-}
-
-void	linex(mlx_t	*mlx, coords **coor, int i)
+void	linex(mlx_image_t	**g_img, coords **coor, int i)
 {
 	int x;
 	int ymath;
@@ -63,7 +45,7 @@ void	linex(mlx_t	*mlx, coords **coor, int i)
 	while ((x + (*coor)[i].gridx) != (*coor)[i + 1].gridx)
 	{
 		ymath = mathx(coor, i, x);
-		mlx_image_to_window(mlx, g_img, x + (*coor)[i].gridx + OFX, (*coor)[i].gridy + ymath + OFY);
+		mlx_put_pixel(*g_img, x + (*coor)[i].gridx, (*coor)[i].gridy + ymath, 0x00FFFF);
 		if ((*coor)[i].gridx < (*coor)[i + 1].gridx)
 			++x;
 		else
@@ -71,7 +53,7 @@ void	linex(mlx_t	*mlx, coords **coor, int i)
 	}
 }
 
-void	liney(mlx_t	*mlx, coords **coor, int i, s_leng leng)
+void	liney(mlx_image_t	**g_img, coords **coor, int i, s_leng leng)
 {
 	int y;
 	int xmath;
@@ -80,7 +62,7 @@ void	liney(mlx_t	*mlx, coords **coor, int i, s_leng leng)
 	while ((y + (*coor)[i].gridy) != (*coor)[i - leng.len].gridy)
 	{
 		xmath = mathy(coor, i, y, leng);
-		mlx_image_to_window(mlx, g_img, (*coor)[i].gridx + xmath + OFX, y + (*coor)[i].gridy + OFY);
+		mlx_put_pixel(*g_img, (*coor)[i].gridx + xmath, y + (*coor)[i].gridy, 0x00FFFF);
 		if ((*coor)[i].gridy > (*coor)[i - leng.len].gridy)
 			--y;
 		else
@@ -98,24 +80,14 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 	while (i < (leng.len * leng.lines))
 	{
 		if ((*coor)[i].x + 1 < leng.len)
-			linex(mlx, coor, i);
+			linex(g_img, coor, i);
 		if ((*coor)[i].z != 0)
-			liney(mlx, coor, i, leng);
-		mlx_put_pixel(*g_img, (*coor)[i].gridx + OFX, (*coor)[i].gridy + OFY, 0xd7adad);
+			liney(g_img, coor, i, leng);
+		mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, 0x00FFFF);
+		// printf("i de %d  grix %d et gridy %d\n",i, (*coor)[i].gridx, (*coor)[i].gridy);
 		++i;
 	}
 }
-
-// void	printscreen(mlx_t	*mlx;)
-// {
-// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-// 	{
-// 		mlx_close_window(mlx);
-// 		return ;
-// 	}
-// 	mlx_loop_hook(mlx, &hook, mlx);
-// 	mlx_loop(mlx);
-// }
 
 void	fillback(mlx_image_t	**background)
 {
@@ -131,6 +103,29 @@ void	fillback(mlx_image_t	**background)
 	}
 }
 
+int	maxintx(coords **coor, s_leng leng, char c)
+{
+	int i;
+	int max;
+	int maxy;
+
+	i = 0;
+	max = 0;
+	maxy = 0;
+	while (i < (leng.len * leng.lines))
+	{
+		if (max < (*coor)[i].gridx)
+			max = (*coor)[i].gridx;
+		if (maxy < (*coor)[i].gridy)
+			maxy = (*coor)[i].gridy;
+		++i;
+	}
+	if (c == 'x')
+		return (max + 1);
+	else
+		return (maxy + 1);
+}
+
 //MAIN FOR MLX42
 int	screen(coords **coor, s_leng leng)
 {
@@ -144,19 +139,17 @@ int	screen(coords **coor, s_leng leng)
 		return (0);
 
 	background = mlx_new_image(mlx, WIDTH, HEIGHT);
+	fillback(&background);
 	mlx_image_to_window(mlx, background, 0, 0);
 	//memset(background->pixels, 0, background->width * background->height * sizeof(int));
-	fillback(&background);
 
-	g_img = mlx_new_image(mlx, 1, 1);
-	mlx_image_to_window(mlx, g_img,WIDTH/4,HEIGHT/4);
-	memset(g_img->pixels, 255, g_img->width * g_img->height * sizeof(int));
-	// mlx_put_pixel(g_img, OFX - 10, OFY - 10, 0xd7adad);
+	g_img = mlx_new_image(mlx, maxintx(coor,leng, 'x'), maxintx(coor,leng, 'y'));
+	mlx_image_to_window(mlx, g_img, 0, 0);
+	// memset(g_img->pixels, 255, g_img->width * g_img->height * sizeof(int));
 	gridline(coor, leng, mlx, &g_img);
-	// printscreen(mlx);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	//mlx_terminate(mlx);
+	// return (EXIT_SUCCESS);
 	return (0);
 }

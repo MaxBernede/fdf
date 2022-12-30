@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/26 17:16:22 by kyuuh            ###   ########.fr       */
+/*   Updated: 2022/12/30 17:44:33 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	printcoor(coords *coor, s_leng leng)
 	max = leng.lines * leng.len;
 	while (i < max)
 	{
-		//printf("x : %d  y : %d  z :  %d\n", coor[i].x, coor[i].y, coor[i].z);
 		printf("x : %d  y : %d\n", coor[i].gridx, coor[i].gridy);
 		++i;
 	}
