@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 16:27:51 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/30 18:03:07 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 17:08:40 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
 	}
 }
 
-//search for the min grid x and grid y values then clean above
+//search for the min grid x and grid y values to print only positive numbers
 void	cleangridxy(coords **coor, s_leng leng)
 {
 	int i;
@@ -57,7 +57,7 @@ void	cleangridxy(coords **coor, s_leng leng)
 		cleanpositive(coor, leng, minx, miny);
 }
 
-//*10 is the amount of power of the value changed
+//scale is the zoom, I need to change the hardcoded values inside still
 void	gridxy(coords **coor, s_leng leng, int scale)
 {
 	int y;
@@ -78,7 +78,8 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 	cleangridxy(coor, leng);
 }
 
-int mathx(coords **coor, int i, int x)
+//mathx return an int for the x position of the point to print
+int mathx(coords **coor, int i, int x) // print if value to the right, from left to right
 {
 	float y;
 	float m;
@@ -92,7 +93,8 @@ int mathx(coords **coor, int i, int x)
 	return (o);
 }
 
-int mathy(coords **coor, int i, int x, s_leng leng)
+// give back the y coordinate
+int mathy(coords **coor, int i, int x, s_leng leng) // print if value above, from bottom to top
 {
 	float y;
 	float m;

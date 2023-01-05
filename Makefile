@@ -6,13 +6,14 @@
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
-#    Updated: 2022/12/20 16:28:45 by kyuuh            ###   ########.fr        #
+#    Updated: 2023/01/05 16:42:17 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 	:= 		main.c\
 				second.c\
-				grid.c
+				grid.c\
+				coordcolors.c
 
 RM 		:= 		rm -f
 

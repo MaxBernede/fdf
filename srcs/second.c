@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 01:34:19 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 17:02:21 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		g_img->instances[0].y -= 5;
+		g_img->instances[0].y -= 25;
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		g_img->instances[0].y += 5;
+		g_img->instances[0].y += 25;
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		g_img->instances[0].x -= 5;
+		g_img->instances[0].x -= 25;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		g_img->instances[0].x += 5;
+		g_img->instances[0].x += 25;
 	if (mlx_is_key_down(mlx, MLX_KEY_J))
 		printf("Hello ");
 }
@@ -62,7 +62,7 @@ void	liney(mlx_image_t	**g_img, coords **coor, int i, s_leng leng)
 	while ((y + (*coor)[i].gridy) != (*coor)[i - leng.len].gridy)
 	{
 		xmath = mathy(coor, i, y, leng);
-		mlx_put_pixel(*g_img, (*coor)[i].gridx + xmath, y + (*coor)[i].gridy, 0x00FFFF);
+		mlx_put_pixel(*g_img, (*coor)[i].gridx + xmath, y + (*coor)[i].gridy, 0x00FF00FF);
 		if ((*coor)[i].gridy > (*coor)[i - leng.len].gridy)
 			--y;
 		else
@@ -79,17 +79,17 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 	printf("entree\n");
 	while (i < (leng.len * leng.lines))
 	{
-		if ((*coor)[i].x + 1 < leng.len)
-			linex(g_img, coor, i);
-		if ((*coor)[i].z != 0)
-			liney(g_img, coor, i, leng);
+		// if ((*coor)[i].x + 1 < leng.len)
+		// 	linex(g_img, coor, i);
+		// if ((*coor)[i].z != 0)
+		// 	liney(g_img, coor, i, leng);
 		mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, (*coor)[i].color);
 		// printf("i de %d  grix %d et gridy %d\n",i, (*coor)[i].gridx, (*coor)[i].gridy);
 		++i;
 	}
 }
 
-void	fillback(mlx_image_t	**background)
+void	fillback(mlx_image_t	**background) // fill black on background
 {
 	int x;
 	int y;
@@ -99,11 +99,11 @@ void	fillback(mlx_image_t	**background)
 	{
 		x = -1;
 		while(++x <= WIDTH)
-			mlx_put_pixel(*background, x, y, 0x0000FF);
+			mlx_put_pixel(*background, x, y, 0x000000FF);
 	}
 }
 
-int	maxintx(coords **coor, s_leng leng, char c)
+int	maxintx(coords **coor, s_leng leng, char c) // max value for x or y depending on the input char
 {
 	int i;
 	int max;

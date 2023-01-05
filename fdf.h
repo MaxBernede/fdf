@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 01:30:01 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 16:52:44 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ typedef struct coor
 	int	z;
 	int	gridx;
 	int	gridy;
-	uint32_t	color;
+	int r;
+	int g;
+	int b;
+	uint color;
 }	coords;
 
 typedef struct leng
 {
 	int	len;
 	int	lines;
+	int x;
+	int z;
 }	s_leng;
 
 void	gridxy(coords **coor, s_leng leng, int scale);
@@ -48,5 +53,7 @@ void	cleangridxy(coords **coor, s_leng leng);
 void	gridxy(coords **coor, s_leng leng, int scale);
 int		mathx(coords **coor, int i, int x);
 int		mathy(coords **coor, int i, int x, s_leng leng);
+
+void	fill(coords **coor, char *file, s_leng leng);
 
 #endif
