@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/30 18:02:02 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 01:30:01 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct coor
 	int	z;
 	int	gridx;
 	int	gridy;
+	uint32_t	color;
 }	coords;
 
 typedef struct leng

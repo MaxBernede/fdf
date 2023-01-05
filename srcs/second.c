@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/30 18:41:31 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 01:34:19 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 			linex(g_img, coor, i);
 		if ((*coor)[i].z != 0)
 			liney(g_img, coor, i, leng);
-		mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, 0x00FFFF);
+		mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, (*coor)[i].color);
 		// printf("i de %d  grix %d et gridy %d\n",i, (*coor)[i].gridx, (*coor)[i].gridy);
 		++i;
 	}

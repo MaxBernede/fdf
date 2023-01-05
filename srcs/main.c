@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2022/12/30 17:44:33 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 01:32:14 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	printcoor(coords *coor, s_leng leng)
 	max = leng.lines * leng.len;
 	while (i < max)
 	{
-		printf("x : %d  y : %d\n", coor[i].gridx, coor[i].gridy);
+		//printf("x : %d  y : %d\n", coor[i].gridx, coor[i].gridy);
 		++i;
 	}
 }
@@ -33,6 +33,7 @@ void	fill(coords **coor, char *file, s_leng leng)
 {
 	int fd;
 	char	**splited;
+	char	**intcolor;
 	int		x;
 	char	*line;
 	int		z;
@@ -46,9 +47,20 @@ void	fill(coords **coor, char *file, s_leng leng)
 		splited = ft_split(line, ' ');
 		while (splited[x])
 		{
+			intcolor = ft_split(splited[x], ',');
 			(*coor)[x + (leng.len * z)].x = x;
 			(*coor)[x + (leng.len * z)].z = z;
-			(*coor)[x + (leng.len * z)].y = ft_atoi(splited[x]);
+			(*coor)[x + (leng.len * z)].y = ft_atoi(intcolor[0]);
+			if (intcolor[1])
+			{
+				printf("couleur\n");
+				(*coor)[x + (leng.len * z)].color = ft_atoi(intcolor[1]);
+			}
+			else
+			{
+				printf("BLANC\n");
+				(*coor)[x + (leng.len * z)].color = 0xFFFFFF;
+			}
 			++x;
 		}
 		line = get_next_line(fd);
