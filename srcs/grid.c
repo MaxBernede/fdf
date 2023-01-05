@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 16:27:51 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 17:08:40 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 21:04:13 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,19 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 {
 	int y;
 	int x;
+	int half;
+	int height;
 
 	y = 0;
+	half = scale / 2;
+	height = 1;
 	while (y < leng.lines)
 	{
 		x = 0;
 		while (x < leng.len)
 		{
 			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y*leng.len)].gridy = y * scale/2 + (x * scale / 2) - (*coor)[x + (y * leng.len)].y * 5;
+			(*coor)[x + (y*leng.len)].gridy = y * half + (x * half) - (*coor)[x + (y * leng.len)].y * height;
 			++x;
 		}
 		++y;

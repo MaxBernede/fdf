@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 16:52:44 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/05 22:32:28 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef struct leng
 	int z;
 }	s_leng;
 
+typedef struct rgb
+{
+	int	r;
+	int	g;
+	int b;
+}	s_colors;
+
 void	gridxy(coords **coor, s_leng leng, int scale);
 int		screen(coords **coor, s_leng leng);
 void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img);
@@ -55,5 +62,7 @@ int		mathx(coords **coor, int i, int x);
 int		mathy(coords **coor, int i, int x, s_leng leng);
 
 void	fill(coords **coor, char *file, s_leng leng);
+
+uint	colorpoint(coords **coor, int i, int x);
 
 #endif

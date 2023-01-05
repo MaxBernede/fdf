@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 16:58:52 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/06 00:01:44 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	hexavalue(char *c, int x) // give the decimal value for R G or B
 	ret = 0;
 	hexa = "0123456789ABCDEF";
 	i = 0;
-	while (hexa[i] && hexa[i] != ft_toupper(c[x]))
+	while (i < 15 && hexa[i] != ft_toupper(c[x]))
 		++i;
 	ret = (i * 16);
 	i = 0;
-	while (hexa[i] && hexa[i] != ft_toupper(c[x + 1]))
+	while (i < 15 && hexa[i] != ft_toupper(c[x + 1]))
 		++i;
 	ret += i;
 	return (ret);
@@ -37,13 +37,34 @@ int	hexavalue(char *c, int x) // give the decimal value for R G or B
 void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng) // fill the colors values
 {
 	int n;
-
+	if (strcolor[ft_strlen(strcolor) - 1] == '\n')
+		strcolor[ft_strlen(strcolor) - 1] = '\0';
 	n = leng.x + (leng.len * leng.z);
-	(*coor)[n].r = hexavalue(strcolor, 2);
-	(*coor)[n].g = hexavalue(strcolor, 4);
-	(*coor)[n].b = hexavalue(strcolor, 6);
+	if (ft_strlen(strcolor) == 4)
+	{
+		(*coor)[n].r = 0;
+		(*coor)[n].g = 0;
+		(*coor)[n].b = hexavalue(strcolor, 2);
+	}
+	else if (ft_strlen(strcolor) == 6)
+	{
+		(*coor)[n].r = 0;
+		(*coor)[n].g = hexavalue(strcolor, 2);
+		(*coor)[n].b = hexavalue(strcolor, 4);
+	}
+	else
+	{
+		(*coor)[n].r = hexavalue(strcolor, 2);
+		(*coor)[n].g = hexavalue(strcolor, 4);
+		(*coor)[n].b = hexavalue(strcolor, 6);
+	}
 	(*coor)[n].color = ((*coor)[n].r * 256 * 256 * 256) + ((*coor)[n].g * 256 * 256) + ((*coor)[n].b * 256) + 255;
-	//printf("R G B %d %d %d total : %d\n",(*coor)[n].r,(*coor)[n].g,(*coor)[n].b,(*coor)[n].color);
+	if ((*coor)[n].r == 255 && (*coor)[n].b == 255 && (*coor)[n].g == 0)
+	{
+		printf("R G B %d %d %d total : %d\n", (*coor)[n].r, (*coor)[n].g, (*coor)[n].b, (*coor)[n].color);
+		printf("str : %s\n",strcolor);
+	}
+	// printf("R G B %d %d %d total : %d\n", (*coor)[n].r, (*coor)[n].g, (*coor)[n].b, (*coor)[n].color);
 }
 
 void	fillcoor(coords **coor, char *splited,  s_leng leng) // fill the coordinates with values and color
@@ -63,7 +84,7 @@ void	fillcoor(coords **coor, char *splited,  s_leng leng) // fill the coordinate
 	if (intcolor[1])
 		getcolorintfromhexa(intcolor[1], coor, leng);
 	else
-		(*coor)[n].color = 0xFFFFFFFF;
+		getcolorintfromhexa("0xFFFFFF", coor, leng);
 }
 
 void	fill(coords **coor, char *file, s_leng leng)
