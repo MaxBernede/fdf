@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:01:44 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/06 00:13:15 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
-int	hexavalue(char *c, int x) // give the decimal value for R G or B
+// give the decimal value for R G or B
+int	hexavalue(char *c, int x)
 {
-	int i;
-	int ret;
-	char *hexa;
+	int		i;
+	int		ret;
+	char	*hexa;
 
 	ret = 0;
 	hexa = "0123456789ABCDEF";
@@ -34,9 +35,11 @@ int	hexavalue(char *c, int x) // give the decimal value for R G or B
 	return (ret);
 }
 
-void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng) // fill the colors values
+// fill the colors values
+void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng)
 {
-	int n;
+	int	n;
+
 	if (strcolor[ft_strlen(strcolor) - 1] == '\n')
 		strcolor[ft_strlen(strcolor) - 1] = '\0';
 	n = leng.x + (leng.len * leng.z);
@@ -58,21 +61,17 @@ void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng) // fill the
 		(*coor)[n].g = hexavalue(strcolor, 4);
 		(*coor)[n].b = hexavalue(strcolor, 6);
 	}
-	(*coor)[n].color = ((*coor)[n].r * 256 * 256 * 256) + ((*coor)[n].g * 256 * 256) + ((*coor)[n].b * 256) + 255;
-	if ((*coor)[n].r == 255 && (*coor)[n].b == 255 && (*coor)[n].g == 0)
-	{
-		printf("R G B %d %d %d total : %d\n", (*coor)[n].r, (*coor)[n].g, (*coor)[n].b, (*coor)[n].color);
-		printf("str : %s\n",strcolor);
-	}
-	// printf("R G B %d %d %d total : %d\n", (*coor)[n].r, (*coor)[n].g, (*coor)[n].b, (*coor)[n].color);
+	(*coor)[n].color = ((*coor)[n].r * 16777216) + ((*coor)[n].g * 65536) + \
+	((*coor)[n].b * 256) + 255;
 }
 
-void	fillcoor(coords **coor, char *splited,  s_leng leng) // fill the coordinates with values and color
+// fill the coordinates with values and color
+void	fillcoor(coords **coor, char *splited, s_leng leng)
 {
 	char	**intcolor;
-	int x; // x z and n to make it easier to read
-	int z;
-	int n;
+	int		x;
+	int		z;
+	int		n;
 
 	x = leng.x;
 	z = leng.z;

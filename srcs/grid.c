@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 16:27:51 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/05 21:04:13 by kyuuh            ###   ########.fr       */
+/*   Updated: 2023/01/06 00:15:54 by kyuuh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // add the max negative value to only have positive ones
 void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (minx < 0)
@@ -30,7 +30,7 @@ void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
 		if (minx)
 			(*coor)[i].gridx = (*coor)[i].gridx + minx;
 		if (miny)
-			(*coor)[i].gridy= (*coor)[i].gridy + miny;
+			(*coor)[i].gridy = (*coor)[i].gridy + miny;
 		++i;
 	}
 }
@@ -38,9 +38,9 @@ void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
 //search for the min grid x and grid y values to print only positive numbers
 void	cleangridxy(coords **coor, s_leng leng)
 {
-	int i;
-	int minx;
-	int miny;
+	int	i;
+	int	minx;
+	int	miny;
 
 	i = 0;
 	minx = 0;
@@ -60,10 +60,10 @@ void	cleangridxy(coords **coor, s_leng leng)
 //scale is the zoom, I need to change the hardcoded values inside still
 void	gridxy(coords **coor, s_leng leng, int scale)
 {
-	int y;
-	int x;
-	int half;
-	int height;
+	int	y;
+	int	x;
+	int	half;
+	int	height;
 
 	y = 0;
 	half = scale / 2;
@@ -73,8 +73,9 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		x = 0;
 		while (x < leng.len)
 		{
-			(*coor)[x + (y*leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y*leng.len)].gridy = y * half + (x * half) - (*coor)[x + (y * leng.len)].y * height;
+			(*coor)[x + (y * leng.len)].gridx = x * scale - (y * scale);
+			(*coor)[x + (y * leng.len)].gridy = y * half + (x * half) - \
+			(*coor)[x + (y * leng.len)].y * height;
 			++x;
 		}
 		++y;
@@ -83,12 +84,13 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 }
 
 //mathx return an int for the x position of the point to print
-int mathx(coords **coor, int i, int x) // print if value to the right, from left to right
+// print if theres value to the right, from left to right
+int	mathx(coords **coor, int i, int x)
 {
-	float y;
-	float m;
-	float total;
-	int o;
+	float	y;
+	float	m;
+	float	total;
+	int		o;
 
 	y = (float)(*coor)[i + 1].gridy - (float)(*coor)[i].gridy;
 	m = (float)(*coor)[i + 1].gridx - (float)(*coor)[i].gridx;
@@ -98,12 +100,13 @@ int mathx(coords **coor, int i, int x) // print if value to the right, from left
 }
 
 // give back the y coordinate
-int mathy(coords **coor, int i, int x, s_leng leng) // print if value above, from bottom to top
+// print if theres value above, from bottom to top
+int	mathy(coords **coor, int i, int x, s_leng leng)
 {
-	float y;
-	float m;
-	float total;
-	int o;
+	float	y;
+	float	m;
+	float	total;
+	int		o;
 
 	y = (float)(*coor)[i - leng.len].gridy - (float)(*coor)[i].gridy;
 	m = (float)(*coor)[i - leng.len].gridx - (float)(*coor)[i].gridx;

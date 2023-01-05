@@ -6,15 +6,16 @@
 #    By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 10:45:43 by mbernede          #+#    #+#              #
-#    Updated: 2023/01/05 17:50:43 by kyuuh            ###   ########.fr        #
+#    Updated: 2023/01/06 00:29:05 by kyuuh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 	:= 		main.c\
+				utils.c\
 				second.c\
 				grid.c\
 				coordcolors.c\
-				colorpoint.c
+				colorpoint.c\
 
 RM 		:= 		rm -f
 
