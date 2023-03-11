@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 00:24:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:28:41 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 14:57:56 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 
 // fill black on background
-void	fillback(mlx_image_t **background)
+void	fillback(mlx_image_t *background)
 {
 	int	x;
 	int	y;
 
 	y = -1;
-	while (++y <= HEIGHT)
+	while (++y < HEIGHT)
 	{
 		x = -1;
-		while (++x <= WIDTH)
-			mlx_put_pixel(*background, x, y, 0x000000FF);
+		while (++x < WIDTH)
+			mlx_put_pixel(background, x, y, 0x000000FF);
 	}
 }
 

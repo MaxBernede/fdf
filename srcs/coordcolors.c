@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   coordcolors.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:13:15 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   coordcolors.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 15:56:31 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,16 @@ void	fill(coords **coor, char *file, s_leng leng)
 	{
 		leng.x = 0;
 		splited = ft_split(line, ' ');
+		free(line);
 		while (splited[leng.x])
 		{
 			fillcoor(coor, splited[leng.x], leng);
 			leng.x += 1;
 		}
+		ft_free(splited);
 		line = get_next_line(fd);
 		leng.z += 1;
 	}
+	free(line);
 	close(fd);
 }

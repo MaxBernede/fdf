@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 11:18:44 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:18:06 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 16:08:45 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "../libft/libft.h"
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
+
+int	returnstr(char *str, int ret)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		++i;
+	}
+	return (ret);
+}
 
 // void	printcoor(coords *coor, s_leng leng)
 // {
@@ -29,6 +42,16 @@
 // 	}
 // }
 
+void	ft_free(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
+}
+
 // check number of arguments for each line == leng.len
 int	data(char *line)
 {
@@ -41,6 +64,7 @@ int	data(char *line)
 		return (0);
 	while (splited[n])
 		++n;
+	ft_free(splited);
 	return (n);
 }
 
@@ -50,46 +74,48 @@ int	countlines(s_leng *leng, char *file)
 	int		fd;
 	int		lines;
 	char	*line;
+	char	*files;
 
 	lines = 0;
-	fd = open(ft_strjoin("./test_maps/", file), O_RDONLY);
+	files = ft_strjoin("./test_maps/", file);
+	fd = open(files, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("Arg Incorrect\n");
-		return (0);
-	}
+		return (returnstr("File incorrect or inaccessible\n", 1));
 	line = get_next_line(fd);
-	(*leng).len = data(line);
+	leng->len = data(line);
 	while (line)
 	{
+		free(line);
 		line = get_next_line(fd);
 		++lines;
 	}
+	free(line);
 	close(fd);
-	(*leng).lines = lines;
-	return (1);
+	free(files);
+	leng->lines = lines;
+	return (0);
+}
+
+void	check_leaks()
+{
+	system("leaks fdf");
 }
 
 int	main(int argc, char **argv)
 {
-	int		fd;
 	coords	*coor;
 	s_leng	leng;
 
+	atexit(check_leaks);
 	if (argc != 2)
-	{
-		printf("Number of args incorrect\n");
-		return (0);
-	}
-	if (!countlines(&leng, argv[1]))
-		return (0);
+		return (returnstr("Number of args incorrect\n", 1));
+	if (countlines(&leng, argv[1]))
+		return (1);
 	coor = malloc(sizeof(coords) * leng.len * leng.lines);
 	if (!coor)
-	{
-		printf("malloc error\n");
-		return (0);
-	}
-	fill(&coor, argv[1], leng);
-	screen(&coor, leng);
+		return (returnstr("Malloc error\n", 1));
+	//fill(&coor, argv[1], leng);
+	//screen(&coor, leng);
+	free(coor);
 	return (0);
 }

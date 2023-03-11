@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   second.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 13:55:23 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:32:26 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   second.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 15:18:01 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 			linex(g_img, coor, i);
 		if ((*coor)[i].z != 0)
 			liney(g_img, coor, i, leng);
-		mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, \
-		(*coor)[i].color);
+		if (((*coor)[i].gridx > 0 && (*coor)[i].gridx < WIDTH) && (*coor)[i].gridy > 0 && (*coor)[i].gridx < HEIGHT)
+			mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, \
+			(*coor)[i].color);
 		++i;
 	}
 }
@@ -103,7 +104,7 @@ int	screen(coords **coor, s_leng leng)
 	if (!mlx)
 		return (0);
 	background = mlx_new_image(mlx, WIDTH, HEIGHT);
-	fillback(&background);
+	fillback(background);
 	mlx_image_to_window(mlx, background, 0, 0);
 	g_img = mlx_new_image(mlx, maxintx(coor, leng, 'x'), \
 	maxintx(coor, leng, 'y'));

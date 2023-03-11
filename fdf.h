@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 11:06:32 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:35:09 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   fdf.h                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 15:56:50 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <memory.h>
+# include "libft/libft.h"
 # include "./MLX42/include/MLX42/MLX42.h"
 
 typedef struct coor
@@ -31,7 +32,7 @@ typedef struct coor
 	int		r;
 	int		g;
 	int		b;
-	uint	color;
+	unsigned int	color;
 }	coords;
 
 typedef struct leng
@@ -49,8 +50,10 @@ typedef struct rgb
 	int	b;
 }	s_colors;
 
+void	ft_free(char **str);
+
 int		maxintx(coords **coor, s_leng leng, char c);
-void	fillback(mlx_image_t **background);
+void	fillback(mlx_image_t *background);
 
 void	gridxy(coords **coor, s_leng leng, int scale);
 int		screen(coords **coor, s_leng leng);
@@ -64,6 +67,6 @@ int		mathy(coords **coor, int i, int x, s_leng leng);
 
 void	fill(coords **coor, char *file, s_leng leng);
 
-uint	colorpoint(coords **coor, int i, int x);
+unsigned int	colorpoint(coords **coor, int i, int x);
 
 #endif
