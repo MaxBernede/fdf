@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:09:05 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:13:01 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int	screen(coords *coor, s_leng leng)
 	background = mlx_new_image(mlx, WIDTH, HEIGHT);
 	fillback(background);
 	mlx_image_to_window(mlx, background, 0, 0);
-	g_img = mlx_new_image(mlx, maxintx(&coor, leng, 'x'), \
-	maxintx(&coor, leng, 'y'));
+	g_img = mlx_new_image(mlx, maxintx(coor, leng, 'x'), \
+	maxintx(coor, leng, 'y'));
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	gridline(&coor, leng, mlx, &g_img);
 	mlx_loop_hook(mlx, &hook, mlx);

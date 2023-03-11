@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:10:43 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:15:45 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct rgb
 
 void	ft_free(char **str);
 
-int		maxintx(coords **coor, s_leng leng, char c);
+int		maxintx(coords *coor, s_leng leng, char c);
 void	fillback(mlx_image_t *background);
 
 void	gridxy(coords *coor, s_leng leng, int scale);
