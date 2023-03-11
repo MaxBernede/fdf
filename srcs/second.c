@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 15:18:01 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:09:05 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 }
 
 //MAIN FOR MLX42
-int	screen(coords **coor, s_leng leng)
+int	screen(coords *coor, s_leng leng)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*background;
@@ -106,10 +106,10 @@ int	screen(coords **coor, s_leng leng)
 	background = mlx_new_image(mlx, WIDTH, HEIGHT);
 	fillback(background);
 	mlx_image_to_window(mlx, background, 0, 0);
-	g_img = mlx_new_image(mlx, maxintx(coor, leng, 'x'), \
-	maxintx(coor, leng, 'y'));
+	g_img = mlx_new_image(mlx, maxintx(&coor, leng, 'x'), \
+	maxintx(&coor, leng, 'y'));
 	mlx_image_to_window(mlx, g_img, 0, 0);
-	gridline(coor, leng, mlx, &g_img);
+	gridline(&coor, leng, mlx, &g_img);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	return (0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   grid.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyuuh <kyuuh@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 16:27:51 by kyuuh             #+#    #+#             */
-/*   Updated: 2023/01/06 00:15:54 by kyuuh            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   grid.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/20 16:27:51 by kyuuh         #+#    #+#                 */
+/*   Updated: 2023/03/11 17:09:39 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	cleangridxy(coords **coor, s_leng leng)
 }
 
 //scale is the zoom, I need to change the hardcoded values inside still
-void	gridxy(coords **coor, s_leng leng, int scale)
+void	gridxy(coords *coor, s_leng leng, int scale)
 {
 	int	y;
 	int	x;
@@ -73,14 +73,14 @@ void	gridxy(coords **coor, s_leng leng, int scale)
 		x = 0;
 		while (x < leng.len)
 		{
-			(*coor)[x + (y * leng.len)].gridx = x * scale - (y * scale);
-			(*coor)[x + (y * leng.len)].gridy = y * half + (x * half) - \
-			(*coor)[x + (y * leng.len)].y * height;
+			coor[x + (y * leng.len)].gridx = x * scale - (y * scale);
+			coor[x + (y * leng.len)].gridy = y * half + (x * half) - \
+			coor[x + (y * leng.len)].y * height;
 			++x;
 		}
 		++y;
 	}
-	cleangridxy(coor, leng);
+	cleangridxy(&coor, leng);
 }
 
 //mathx return an int for the x position of the point to print
