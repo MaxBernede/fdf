@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 16:08:45 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 16:37:38 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	main(int argc, char **argv)
 	coor = malloc(sizeof(coords) * leng.len * leng.lines);
 	if (!coor)
 		return (returnstr("Malloc error\n", 1));
-	//fill(&coor, argv[1], leng);
-	//screen(&coor, leng);
+	fill(coor, argv[1], leng);
+	screen(&coor, leng);
 	free(coor);
 	return (0);
 }

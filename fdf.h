@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 15:56:50 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 16:36:27 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	gridxy(coords **coor, s_leng leng, int scale);
 int		mathx(coords **coor, int i, int x);
 int		mathy(coords **coor, int i, int x, s_leng leng);
 
-void	fill(coords **coor, char *file, s_leng leng);
+void	fill(coords *coor, char *file, s_leng leng);
 
 unsigned int	colorpoint(coords **coor, int i, int x);
 

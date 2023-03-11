@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 15:56:31 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 16:36:58 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	hexavalue(char *c, int x)
 }
 
 // fill the colors values
-void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng)
+void	getcolorintfromhexa(char *strcolor, coords *coor, s_leng leng)
 {
 	int	n;
 
@@ -45,28 +45,28 @@ void	getcolorintfromhexa(char *strcolor, coords **coor, s_leng leng)
 	n = leng.x + (leng.len * leng.z);
 	if (ft_strlen(strcolor) == 4)
 	{
-		(*coor)[n].r = 0;
-		(*coor)[n].g = 0;
-		(*coor)[n].b = hexavalue(strcolor, 2);
+		coor[n].r = 0;
+		coor[n].g = 0;
+		coor[n].b = hexavalue(strcolor, 2);
 	}
 	else if (ft_strlen(strcolor) == 6)
 	{
-		(*coor)[n].r = 0;
-		(*coor)[n].g = hexavalue(strcolor, 2);
-		(*coor)[n].b = hexavalue(strcolor, 4);
+		coor[n].r = 0;
+		coor[n].g = hexavalue(strcolor, 2);
+		coor[n].b = hexavalue(strcolor, 4);
 	}
 	else
 	{
-		(*coor)[n].r = hexavalue(strcolor, 2);
-		(*coor)[n].g = hexavalue(strcolor, 4);
-		(*coor)[n].b = hexavalue(strcolor, 6);
+		coor[n].r = hexavalue(strcolor, 2);
+		coor[n].g = hexavalue(strcolor, 4);
+		coor[n].b = hexavalue(strcolor, 6);
 	}
-	(*coor)[n].color = ((*coor)[n].r * 16777216) + ((*coor)[n].g * 65536) + \
-	((*coor)[n].b * 256) + 255;
+	coor[n].color = (coor[n].r * 16777216) + (coor[n].g * 65536) + \
+	(coor[n].b * 256) + 255;
 }
 
 // fill the coordinates with values and color
-void	fillcoor(coords **coor, char *splited, s_leng leng)
+void	fillcoor(coords *coor, char *splited, s_leng leng)
 {
 	char	**intcolor;
 	int		x;
@@ -77,22 +77,25 @@ void	fillcoor(coords **coor, char *splited, s_leng leng)
 	z = leng.z;
 	n = x + (leng.len * z);
 	intcolor = ft_split(splited, ',');
-	(*coor)[n].x = x;
-	(*coor)[n].z = z;
-	(*coor)[n].y = ft_atoi(intcolor[0]);
+	coor[n].x = x;
+	coor[n].z = z;
+	coor[n].y = ft_atoi(intcolor[0]);
 	if (intcolor[1])
 		getcolorintfromhexa(intcolor[1], coor, leng);
 	else
 		getcolorintfromhexa("0xFFFFFF", coor, leng);
+	ft_free(intcolor);
 }
 
-void	fill(coords **coor, char *file, s_leng leng)
+void	fill(coords *coor, char *file, s_leng leng)
 {
 	int		fd;
 	char	**splited;
 	char	*line;
+	char	*files;
 
-	fd = open(ft_strjoin("./test_maps/", file), O_RDONLY);
+	files = ft_strjoin("./test_maps/", file);
+	fd = open(files, O_RDONLY);
 	line = get_next_line(fd);
 	leng.z = 0;
 	while (line)
@@ -110,5 +113,6 @@ void	fill(coords **coor, char *file, s_leng leng)
 		leng.z += 1;
 	}
 	free(line);
+	free(files);
 	close(fd);
 }
