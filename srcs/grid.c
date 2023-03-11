@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 16:27:51 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:20:42 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:43:05 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 
 // add the max negative value to only have positive ones
-void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
+void	cleanpositive(coords *coor, s_leng leng, int minx, int miny)
 {
 	int	i;
 
@@ -28,15 +28,15 @@ void	cleanpositive(coords **coor, s_leng leng, int minx, int miny)
 	while (i < (leng.len * leng.lines))
 	{
 		if (minx)
-			(*coor)[i].gridx = (*coor)[i].gridx + minx;
+			coor[i].gridx = coor[i].gridx + minx;
 		if (miny)
-			(*coor)[i].gridy = (*coor)[i].gridy + miny;
+			coor[i].gridy = coor[i].gridy + miny;
 		++i;
 	}
 }
 
 //search for the min grid x and grid y values to print only positive numbers
-void	cleangridxy(coords **coor, s_leng leng)
+void	cleangridxy(coords *coor, s_leng leng)
 {
 	int	i;
 	int	minx;
@@ -47,10 +47,10 @@ void	cleangridxy(coords **coor, s_leng leng)
 	miny = 0;
 	while (i < (leng.len * leng.lines))
 	{
-		if ((*coor)[i].gridx < minx)
-			minx = (*coor)[i].gridx;
-		if ((*coor)[i].gridy < miny)
-			miny = (*coor)[i].gridy;
+		if (coor[i].gridx < minx)
+			minx = coor[i].gridx;
+		if (coor[i].gridy < miny)
+			miny = coor[i].gridy;
 		++i;
 	}
 	if (minx < 0 || miny < 0)
@@ -80,7 +80,7 @@ void	gridxy(coords *coor, s_leng leng, int scale)
 		}
 		++y;
 	}
-	cleangridxy(&coor, leng);
+	cleangridxy(coor, leng);
 }
 
 //mathx return an int for the x position of the point to print
