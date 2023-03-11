@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:08:31 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:56:40 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	countlines(s_leng *leng, char *file)
 	files = ft_strjoin("./test_maps/", file);
 	fd = open(files, O_RDONLY);
 	if (fd == -1)
+	{
+		free(files);
 		return (returnstr("File incorrect or inaccessible\n", 1));
+	}
 	line = get_next_line(fd);
 	leng->len = data(line);
 	while (line)
