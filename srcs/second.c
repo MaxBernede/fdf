@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:13:01 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/11 17:21:59 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,38 @@ void	hook(void *param)
 		printf("Hello ");
 }
 
-void	linex(mlx_image_t **g_img, coords **coor, int i)
+void	linex(mlx_image_t **g_img, coords *coor, int i)
 {
 	int		x;
 	int		ymath;
 	uint	color;
 
 	x = 0;
-	while ((x + (*coor)[i].gridx) != (*coor)[i + 1].gridx)
+	while ((x + coor[i].gridx) != coor[i + 1].gridx)
 	{
 		ymath = mathx(coor, i, x);
 		color = colorpoint(coor, i, x);
-		mlx_put_pixel(*g_img, x + (*coor)[i].gridx, \
-		(*coor)[i].gridy + ymath, color);
-		if ((*coor)[i].gridx < (*coor)[i + 1].gridx)
+		mlx_put_pixel(*g_img, x + coor[i].gridx, \
+		coor[i].gridy + ymath, color);
+		if (coor[i].gridx < coor[i + 1].gridx)
 			++x;
 		else
 			--x;
 	}
 }
 
-void	liney(mlx_image_t **g_img, coords **coor, int i, s_leng leng)
+void	liney(mlx_image_t **g_img, coords *coor, int i, s_leng leng)
 {
 	int	y;
 	int	xmath;
 
 	y = 0;
-	while ((y + (*coor)[i].gridy) != (*coor)[i - leng.len].gridy)
+	while ((y + coor[i].gridy) != coor[i - leng.len].gridy)
 	{
 		xmath = mathy(coor, i, y, leng);
-		mlx_put_pixel(*g_img, (*coor)[i].gridx + xmath, y + (*coor)[i].gridy, \
-		(*coor)[i].color);
-		if ((*coor)[i].gridy > (*coor)[i - leng.len].gridy)
+		mlx_put_pixel(*g_img, coor[i].gridx + xmath, y + coor[i].gridy, \
+		coor[i].color);
+		if (coor[i].gridy > coor[i - leng.len].gridy)
 			--y;
 		else
 			++y;
@@ -75,20 +75,20 @@ void	liney(mlx_image_t **g_img, coords **coor, int i, s_leng leng)
 }
 
 //DRAW THE DOTS AND LINES
-void	gridline(coords **coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
+void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	**g_img)
 {
 	int	i;
 
 	i = 0;
 	while (i < (leng.len * leng.lines))
 	{
-		if ((*coor)[i].x + 1 < leng.len)
+		if (coor[i].x + 1 < leng.len)
 			linex(g_img, coor, i);
-		if ((*coor)[i].z != 0)
+		if (coor[i].z != 0)
 			liney(g_img, coor, i, leng);
-		if (((*coor)[i].gridx > 0 && (*coor)[i].gridx < WIDTH) && (*coor)[i].gridy > 0 && (*coor)[i].gridx < HEIGHT)
-			mlx_put_pixel(*g_img, (*coor)[i].gridx, (*coor)[i].gridy, \
-			(*coor)[i].color);
+		if ((coor[i].gridx > 0 && coor[i].gridx < WIDTH) && coor[i].gridy > 0 && coor[i].gridx < HEIGHT)
+			mlx_put_pixel(*g_img, coor[i].gridx, coor[i].gridy, \
+			coor[i].color);
 		++i;
 	}
 }
@@ -109,7 +109,7 @@ int	screen(coords *coor, s_leng leng)
 	g_img = mlx_new_image(mlx, maxintx(coor, leng, 'x'), \
 	maxintx(coor, leng, 'y'));
 	mlx_image_to_window(mlx, g_img, 0, 0);
-	gridline(&coor, leng, mlx, &g_img);
+	gridline(coor, leng, mlx, &g_img);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	return (0);
