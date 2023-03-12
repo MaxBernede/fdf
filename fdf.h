@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 14:03:27 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 18:56:23 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		mathy(coords *coor, int i, int x, s_leng leng);
 
 void	fill(coords *coor, char *file, s_leng leng);
 
+unsigned int	colorpointy(coords *coor, int i, int x, s_leng leng);
 unsigned int	colorpoint(coords *coor, int i, int x);
 
 #endif

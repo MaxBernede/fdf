@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 18:49:36 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 19:00:24 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 	int	ymath;
 	int x;
 	int yplus;
+	uint	color;
 
 	x = 0;
 	while ((x + coor[i].gridx) != coor[i - leng.len].gridx)
@@ -89,17 +90,18 @@ void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 		y = 0;
 		ymath = mathy(coor, i, x, leng);
 		yplus = mathy(coor, i, (x + 1), leng);
+		color = colorpointy(coor, i, x, leng);
 		while ((y + ymath) != yplus)
 		{
 			mlx_put_pixel(g_img, x + coor[i].gridx, \
-			coor[i].gridy + y + ymath, coor[i].color);
+			coor[i].gridy + y + ymath, color);
 			if ((y + ymath) < yplus)
 				++y;
 			else if ((y + ymath) > yplus)
 				--y;
 		}
 		mlx_put_pixel(g_img, coor[i].gridx + x, coor[i].gridy + ymath, \
-		coor[i].color);
+		color);
 		if ((x + coor[i].gridx) < coor[i - leng.len].gridx)
 			++x;
 		else
@@ -131,7 +133,7 @@ int	screen(coords *coor, s_leng leng)
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 
-	gridxy(coor, leng, 30);
+	gridxy(coor, leng, 10);
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		return (0);

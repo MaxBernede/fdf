@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 16:27:51 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 18:41:42 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 18:54:11 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,6 @@ int	mathy(coords *coor, int i, int x, s_leng leng)
 	m = (float)coor[i - leng.len].gridx - (float)coor[i].gridx;
 	total = y / m;
 	o = total * x;
-	// printf("M %d - %d\n", coor[i - leng.len].gridx, coor[i].gridx);
-	// printf("Y %d - %d\n", coor[i - leng.len].gridy, coor[i].gridy);
-	// printf(" total : %f y %f m %f O in mathy : %d\n", total, y, m, o);
 	if (!y)
 		return (0);
 	return (o);
