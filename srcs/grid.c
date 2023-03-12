@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 16:27:51 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:43:05 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 18:41:42 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ void	gridxy(coords *coor, s_leng leng, int scale)
 		x = 0;
 		while (x < leng.len)
 		{
-			coor[x + (y * leng.len)].gridx = x * scale - (y * scale);
-			coor[x + (y * leng.len)].gridy = y * half + (x * half) - \
-			coor[x + (y * leng.len)].y * height;
+			coor[x + y * leng.len].gridx = (x - y) * scale;
+			coor[x + y * leng.len].gridy = (y + x) * half - coor[x + y * leng.len].y * height;
 			++x;
 		}
 		++y;
@@ -110,7 +109,12 @@ int	mathy(coords *coor, int i, int x, s_leng leng)
 
 	y = (float)coor[i - leng.len].gridy - (float)coor[i].gridy;
 	m = (float)coor[i - leng.len].gridx - (float)coor[i].gridx;
-	total = m / y;
+	total = y / m;
 	o = total * x;
+	// printf("M %d - %d\n", coor[i - leng.len].gridx, coor[i].gridx);
+	// printf("Y %d - %d\n", coor[i - leng.len].gridy, coor[i].gridy);
+	// printf(" total : %f y %f m %f O in mathy : %d\n", total, y, m, o);
+	if (!y)
+		return (0);
 	return (o);
 }

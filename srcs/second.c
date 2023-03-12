@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 16:23:40 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 18:49:36 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,31 @@ void	linex(mlx_image_t *g_img, coords *coor, int i)
 void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 {
 	int	y;
-	int	xmath;
+	int	ymath;
 	int x;
-	int xplus;
+	int yplus;
 
-	y = 0;
-	while ((y + coor[i].gridy) != coor[i - leng.len].gridy)
+	x = 0;
+	while ((x + coor[i].gridx) != coor[i - leng.len].gridx)
 	{
-		xmath = mathy(coor, i, y, leng);
-		printf("mathx %d\n", xmath);
-		mlx_put_pixel(g_img, coor[i].gridx + xmath, y + coor[i].gridy, \
+		y = 0;
+		ymath = mathy(coor, i, x, leng);
+		yplus = mathy(coor, i, (x + 1), leng);
+		while ((y + ymath) != yplus)
+		{
+			mlx_put_pixel(g_img, x + coor[i].gridx, \
+			coor[i].gridy + y + ymath, coor[i].color);
+			if ((y + ymath) < yplus)
+				++y;
+			else if ((y + ymath) > yplus)
+				--y;
+		}
+		mlx_put_pixel(g_img, coor[i].gridx + x, coor[i].gridy + ymath, \
 		coor[i].color);
-		if (coor[i].gridy > coor[i - leng.len].gridy)
-			--y;
+		if ((x + coor[i].gridx) < coor[i - leng.len].gridx)
+			++x;
 		else
-			++y;
+			--x;	
 	}
 }
 
@@ -106,8 +116,8 @@ void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img)
 	i = 0;
 	while (i < (leng.len * leng.lines))
 	{
-		// if (coor[i].x + 1 < leng.len)
-		// 	linex(g_img, coor, i);
+		if (coor[i].x + 1 < leng.len)
+			linex(g_img, coor, i);
 		if (coor[i].z != 0)
 			liney(g_img, coor, i, leng);
 		ifprintpixel(coor, g_img, i);
@@ -121,7 +131,7 @@ int	screen(coords *coor, s_leng leng)
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 
-	gridxy(coor, leng, 20);
+	gridxy(coor, leng, 30);
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		return (0);
