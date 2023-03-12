@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 16:36:58 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 14:03:42 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	getcolorintfromhexa(char *strcolor, coords *coor, s_leng leng)
 
 	if (strcolor[ft_strlen(strcolor) - 1] == '\n')
 		strcolor[ft_strlen(strcolor) - 1] = '\0';
-	n = leng.x + (leng.len * leng.z);
+	n = leng.x + (leng.len * leng.y);
 	if (ft_strlen(strcolor) == 4)
 	{
 		coor[n].r = 0;
@@ -74,7 +74,7 @@ void	fillcoor(coords *coor, char *splited, s_leng leng)
 	int		n;
 
 	x = leng.x;
-	z = leng.z;
+	z = leng.y;
 	n = x + (leng.len * z);
 	intcolor = ft_split(splited, ',');
 	coor[n].x = x;
@@ -97,7 +97,7 @@ void	fill(coords *coor, char *file, s_leng leng)
 	files = ft_strjoin("./test_maps/", file);
 	fd = open(files, O_RDONLY);
 	line = get_next_line(fd);
-	leng.z = 0;
+	leng.y = 0;
 	while (line)
 	{
 		leng.x = 0;
@@ -110,7 +110,7 @@ void	fill(coords *coor, char *file, s_leng leng)
 		}
 		ft_free(splited);
 		line = get_next_line(fd);
-		leng.z += 1;
+		leng.y += 1;
 	}
 	free(line);
 	free(files);

@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 18:03:52 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 16:23:40 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,27 @@ void	linex(mlx_image_t *g_img, coords *coor, int i)
 	int		x;
 	int		ymath;
 	uint	color;
+	int		y;
+	int 	ymathplus;
 
 	x = 0;
 	while ((x + coor[i].gridx) != coor[i + 1].gridx)
 	{
+		y = 0;
 		ymath = mathx(coor, i, x);
+		ymathplus = mathx(coor, i, x + 1);
 		color = colorpoint(coor, i, x);
+		while ((y + ymath) != ymathplus)
+		{
+			mlx_put_pixel(g_img, x + coor[i].gridx, \
+			coor[i].gridy + ymath + y, color);
+			if ((y + ymath) < ymathplus)
+				++y;
+			else if ((y + ymath) > ymathplus)
+				--y;
+		}
 		mlx_put_pixel(g_img, x + coor[i].gridx, \
-		coor[i].gridy + ymath, color);
+		coor[i].gridy + ymath + y, color);
 		if (coor[i].gridx < coor[i + 1].gridx)
 			++x;
 		else
@@ -67,11 +80,14 @@ void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 {
 	int	y;
 	int	xmath;
+	int x;
+	int xplus;
 
 	y = 0;
 	while ((y + coor[i].gridy) != coor[i - leng.len].gridy)
 	{
 		xmath = mathy(coor, i, y, leng);
+		printf("mathx %d\n", xmath);
 		mlx_put_pixel(g_img, coor[i].gridx + xmath, y + coor[i].gridy, \
 		coor[i].color);
 		if (coor[i].gridy > coor[i - leng.len].gridy)
@@ -90,8 +106,8 @@ void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img)
 	i = 0;
 	while (i < (leng.len * leng.lines))
 	{
-		if (coor[i].x + 1 < leng.len)
-			linex(g_img, coor, i);
+		// if (coor[i].x + 1 < leng.len)
+		// 	linex(g_img, coor, i);
 		if (coor[i].z != 0)
 			liney(g_img, coor, i, leng);
 		ifprintpixel(coor, g_img, i);
@@ -105,7 +121,7 @@ int	screen(coords *coor, s_leng leng)
 	mlx_t		*mlx;
 	mlx_image_t	*background;
 
-	gridxy(coor, leng, 100);
+	gridxy(coor, leng, 20);
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		return (0);
