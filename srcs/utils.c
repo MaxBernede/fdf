@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/11 17:16:21 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 19:15:26 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,27 @@ int	maxintx(coords *coor, s_leng leng, char c)
 		return (max + 1);
 	else
 		return (maxy + 1);
+}
+
+void	ifprintpixel(coords *coor, mlx_image_t	*g_img, int i)
+{
+	if (coor[i].gridx > 0 && coor[i].gridx < WIDTH && \
+	coor[i].gridy > 0 && coor[i].gridx < HEIGHT)
+		mlx_put_pixel(g_img, coor[i].gridx, coor[i].gridy, \
+		coor[i].color);
+}
+
+void	ft_free(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
+}
+
+void	check_leaks(void)
+{
+	system("leaks fdf");
 }

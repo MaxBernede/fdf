@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 19:00:24 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 19:15:45 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,13 @@ void	hook(void *param)
 		printf("Hello ");
 }
 
-void	ifprintpixel(coords *coor, mlx_image_t	*g_img, int i)
-{
-	if (coor[i].gridx > 0 && coor[i].gridx < WIDTH && coor[i].gridy > 0 && coor[i].gridx < HEIGHT)
-		mlx_put_pixel(g_img, coor[i].gridx, coor[i].gridy, \
-		coor[i].color);
-}
-
 void	linex(mlx_image_t *g_img, coords *coor, int i)
 {
 	int		x;
 	int		ymath;
 	uint	color;
 	int		y;
-	int 	ymathplus;
+	int		ymathplus;
 
 	x = 0;
 	while ((x + coor[i].gridx) != coor[i + 1].gridx)
@@ -78,10 +71,10 @@ void	linex(mlx_image_t *g_img, coords *coor, int i)
 
 void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 {
-	int	y;
-	int	ymath;
-	int x;
-	int yplus;
+	int		y;
+	int		ymath;
+	int		x;
+	int		yplus;
 	uint	color;
 
 	x = 0;
@@ -108,7 +101,6 @@ void	liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng)
 			--x;	
 	}
 }
-
 
 //DRAW THE DOTS AND LINES
 void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img)

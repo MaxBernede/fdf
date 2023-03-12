@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 16:27:51 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 18:54:11 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 19:10:29 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	gridxy(coords *coor, s_leng leng, int scale)
 		while (x < leng.len)
 		{
 			coor[x + y * leng.len].gridx = (x - y) * scale;
-			coor[x + y * leng.len].gridy = (y + x) * half - coor[x + y * leng.len].y * height;
+			coor[x + y * leng.len].gridy = (y + x) * half - \
+			coor[x + y * leng.len].y * height;
 			++x;
 		}
 		++y;

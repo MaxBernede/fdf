@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 16:38:11 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/12 19:13:30 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,6 @@ int	returnstr(char *str, int ret)
 	return (ret);
 }
 
-// void	printcoor(coords *coor, s_leng leng)
-// {
-// 	int	max;
-// 	int	i;
-
-// 	i = 0;
-// 	max = leng.lines * leng.len;
-// 	while (i < max)
-// 	{
-// 		printf("x : %d  y : %d\n", coor[i].gridx, coor[i].gridy);
-// 		++i;
-// 	}
-// }
-
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		free(str[i]);
-	free(str);
-}
-
 // check number of arguments for each line == leng.len
 int	data(char *line)
 {
@@ -69,14 +45,12 @@ int	data(char *line)
 }
 
 // check if fd error or if theres no lines
-int	countlines(s_leng *leng, char *file)
+int	countlines(s_leng *leng, char *file, int lines)
 {
 	int		fd;
-	int		lines;
 	char	*line;
 	char	*files;
 
-	lines = 0;
 	files = ft_strjoin("./test_maps/", file);
 	fd = open(files, O_RDONLY);
 	if (fd == -1)
@@ -99,20 +73,14 @@ int	countlines(s_leng *leng, char *file)
 	return (0);
 }
 
-void	check_leaks()
-{
-	system("leaks fdf");
-}
-
 int	main(int argc, char **argv)
 {
 	coords	*coor;
 	s_leng	leng;
 
-	// atexit(check_leaks);
 	if (argc != 2)
 		return (returnstr("Number of args incorrect\n", 1));
-	if (countlines(&leng, argv[1]))
+	if (countlines(&leng, argv[1], 0))
 		return (1);
 	coor = malloc(sizeof(coords) * leng.len * leng.lines);
 	if (!coor)
