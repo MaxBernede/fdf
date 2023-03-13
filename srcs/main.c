@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 15:51:50 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:18:03 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	map_data(t_all *all, char *file, int lines)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	coords	*coor;
 	s_leng	leng;
 
 	//atexit(check_leaks);
@@ -55,13 +54,13 @@ int	main(int argc, char **argv)
 		return (returnstr("Number of args incorrect\n", 1));
 	if (map_data(&all, argv[1], 0))
 		return (1);
-	coor = malloc(sizeof(coords) * all.nb_len * all.nb_lines);
-	if (!coor)
+	all.coor = malloc(sizeof(coords) * all.nb_len * all.nb_lines);
+	if (!all.coor)
 		return (returnstr("Malloc error\n", 1));
 	leng.len = all.nb_len;
 	leng.lines = all.nb_lines;
-	fill(coor, argv[1], leng);
-	screen(coor, leng);
-	free(coor);
+	fill(&all, argv[1]);
+	screen(all.coor, leng);
+	free(all.coor);
 	return (0);
 }

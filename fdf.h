@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 15:55:51 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:17:42 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ typedef struct coor
 
 typedef struct all
 {
+	coords		*coor;
 	mlx_t		*mlx;
 	mlx_image_t	*g_img;
 	int			nb_lines;
 	int			nb_len;
 	int			zoom;
+	int			a;
+	int			b;
 }	t_all;
 
 typedef struct leng
@@ -65,9 +68,9 @@ uint			colorpoint(coords *coor, int i, int x);
 
 //coordcolors.c
 int				hexavalue(char *c, int x);
-void			getcolorintfromhexa(char *strcolor, coords *coor, s_leng leng);
-void			fillcoor(coords *coor, char *splited, s_leng leng);
-void			fill(coords *coor, char *file, s_leng leng);
+void			getcolorintfromhexa(char *strcolor, t_all *all);
+void			fillcoor(t_all *all, char *splited);
+void			fill(t_all *all, char *file);
 
 //grid.c
 void			cleanpositive(coords *coor, s_leng leng, int minx, int miny);
