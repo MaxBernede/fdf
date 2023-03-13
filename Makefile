@@ -6,7 +6,7 @@
 #    By: kyuuh <kyuuh@student.42.fr>                  +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/07 10:45:43 by mbernede      #+#    #+#                  #
-#    Updated: 2023/03/13 15:48:58 by mbernede      ########   odam.nl          #
+#    Updated: 2023/03/13 16:22:33 by mbernede      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,11 @@ RESET	:= \033[0m
 NAME	:=		fdf
 
 SRCS 	:= 		main.c\
+				hook.c\
 				utils.c\
 				second.c\
 				grid.c\
-				coordcolors.c\
+				mapvalues.c\
 				colorpoint.c\
 				utils2.c\
 

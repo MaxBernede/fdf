@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:18:03 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:28:40 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	leng.len = all.nb_len;
 	leng.lines = all.nb_lines;
 	fill(&all, argv[1]);
-	screen(all.coor, leng);
+	screen(&all);
 	free(all.coor);
 	return (0);
 }

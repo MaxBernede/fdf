@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 15:42:37 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:27:01 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,6 @@
 #include "../libft/libft.h"
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
-
-void	hook(void *param)
-{
-	t_all	*all;
-	
-	all = param;
-	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(all->mlx);
-	if (mlx_is_key_down(all->mlx, MLX_KEY_UP))
-		all->g_img->instances[0].y -= 25;
-	if (mlx_is_key_down(all->mlx, MLX_KEY_DOWN))
-		all->g_img->instances[0].y += 25;
-	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT))
-		all->g_img->instances[0].x -= 25;
-	if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT))
-		all->g_img->instances[0].x += 25;
-	if (mlx_is_key_down(all->mlx, MLX_KEY_0))
-		all->g_img->instances[0].x += 25;
-}
 
 void	linex(mlx_image_t *g_img, coords *coor, int i)
 {
@@ -118,24 +99,24 @@ void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img)
 }
 
 //MAIN FOR MLX42
-int	screen(coords *coor, s_leng leng)
+int	screen(t_all *all)
 {
 	mlx_image_t	*background;
-	t_all		all;
 
-	all.zoom = 10;
-	gridxy(coor, leng, all.zoom);
-	all.mlx =  mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!all.mlx)
-		return (0);
-	background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	placebackground(background);
-	mlx_image_to_window(all.mlx, background, 0, 0);
-	all.g_img = mlx_new_image(all.mlx, maxintx(coor, leng, 'x'), \
-	maxintx(coor, leng, 'y'));
-	mlx_image_to_window(all.mlx, all.g_img, 0, 0);
-	gridline(coor, leng, all.mlx, all.g_img);
-	mlx_loop_hook(all.mlx, &hook, &all);
-	mlx_loop(all.mlx);
+	all->zoom = 10;
+	all->height = 1;
+	gridxy(all);
+	// all.mlx =  mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	// if (!all.mlx)
+	// 	return (0);
+	// background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	// placebackground(background);
+	// mlx_image_to_window(all.mlx, background, 0, 0);
+	// all.g_img = mlx_new_image(all.mlx, maxintx(coor, leng, 'x'), \
+	// maxintx(coor, leng, 'y'));
+	// mlx_image_to_window(all.mlx, all.g_img, 0, 0);
+	// gridline(coor, leng, all.mlx, all.g_img);
+	// mlx_loop_hook(all.mlx, &hook, &all);
+	// mlx_loop(all.mlx);
 	return (0);
 }

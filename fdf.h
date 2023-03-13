@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:17:42 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:30:01 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct all
 	int			nb_lines;
 	int			nb_len;
 	int			zoom;
+	int			height;
 	int			a;
 	int			b;
 }	t_all;
@@ -66,16 +67,16 @@ typedef struct rgb
 uint			colorpointy(coords *coor, int i, int x, s_leng leng);
 uint			colorpoint(coords *coor, int i, int x);
 
-//coordcolors.c
+//mapvalues.c
 int				hexavalue(char *c, int x);
 void			getcolorintfromhexa(char *strcolor, t_all *all);
 void			fillcoor(t_all *all, char *splited);
 void			fill(t_all *all, char *file);
 
 //grid.c
-void			cleanpositive(coords *coor, s_leng leng, int minx, int miny);
-void			cleangridxy(coords *coor, s_leng leng);
-void			gridxy(coords *coor, s_leng leng, int scale);
+void			cleanpositive(t_all *all, int minx, int miny);
+void			cleangridxy(t_all *all);
+void			gridxy(t_all *all);
 int				mathx(coords *coor, int i, int x);
 int				mathy(coords *coor, int i, int x, s_leng leng);
 
@@ -83,12 +84,14 @@ int				mathy(coords *coor, int i, int x, s_leng leng);
 int				map_data(t_all *all, char *file, int lines);
 int				main(int argc, char **argv);
 
-//second.c
+//hook.c
 void			hook(void *param);
+
+//second.c
 void			linex(mlx_image_t *g_img, coords *coor, int i);
 void			liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng);
 void			gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img);
-int				screen(coords *coor, s_leng leng);
+int				screen(t_all *all);
 
 //utils.c
 int				grad_diff(int rstart, int rend, float pourcent);
