@@ -6,7 +6,7 @@
 #    By: kyuuh <kyuuh@student.42.fr>                  +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/07 10:45:43 by mbernede      #+#    #+#                  #
-#    Updated: 2023/03/13 16:22:33 by mbernede      ########   odam.nl          #
+#    Updated: 2023/03/13 17:59:17 by mbernede      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS 	:= 		main.c\
 				utils2.c\
 
 RM 		:= 		rm -f
-#CFLAGS	:=		-Wall -Werror -Wextra
+CFLAGS	:=		-Wall -Werror -Wextra
 CC		:= 		cc
 
 OBJ_DIR	:=		./objs/

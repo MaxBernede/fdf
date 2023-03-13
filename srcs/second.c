@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 17:22:22 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 18:19:45 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,17 @@ int	screen(t_all *all)
 	if (!all->mlx)
 		return (0);
 	background = mlx_new_image(all->mlx, WIDTH, HEIGHT);
+	if (!background)
+		return(returnstr("\nBackground image creation failed\n", 0));
 	fill_background(background);
 	mlx_image_to_window(all->mlx, background, 0, 0);
 	all->g_img = mlx_new_image(all->mlx, maxintx(all, 'x'), maxintx(all, 'y'));
+	if (!all->g_img)
+		return(returnstr("\nMap creation failed\n", 0));
 	mlx_image_to_window(all->mlx, all->g_img, 0, 0);
 	gridline(all);
+	all->g_img->instances[0].x -=  maxintx(all, 'x') / 3;
+	all->g_img->instances[0].y -=  maxintx(all, 'y') / 3;
 	mlx_loop_hook(all->mlx, &hook, all);
 	mlx_loop(all->mlx);
 	return (0);

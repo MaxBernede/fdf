@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 17:58:09 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 18:14:17 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ int	fillcoor(t_all *all, char *splited)
 	z = all->a;
 	n = x + (all->nb_len * z);
 	max = n * all->zoom * all->height;
-	//printf("n * zoom * height %d\n", n * all->zoom * all->height);
-	if ((max < 100000000 && max < 0) || (max > 100000000 && max > 0))
-		return (1);
 	intcolor = ft_split(splited, ',');
 	all->coor[n].x = x;
 	all->coor[n].z = z;

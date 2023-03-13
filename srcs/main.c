@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 17:57:48 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 18:23:52 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	t_all	all;
 
 	all.zoom = 10;
-	all.height = 100;
+	all.height = 10;
 	if (argc != 2)
 		return (returnstr("Number of args incorrect\n", 1));
 	if (map_data(&all, argv[1], 0))
