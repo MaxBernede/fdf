@@ -1,29 +1,29 @@
-void	fill(t_all *all, char *file)
+void	linex(t_all *all, int i)
 {
-	int		fd;
-	char	**splited;
-	char	*line;
-	char	*files;
+	t_nb	nb;
+	uint	color;
 
-	files = ft_strjoin("./test_maps/", file);
-	fd = open(files, O_RDONLY);
-	line = get_next_line(fd);
-	all->a = 0;
-	while (line)
+	nb.x = 0;
+	while ((nb.x + all->coor[i].gridx) != all->coor[i + 1].gridx)
 	{
-		all->b = 0;
-		splited = ft_split(line, ' ');
-		free(line);
-		while (splited[all->b])
+		nb.y = 0;
+		nb.ymth = mathx(all, i, nb.x);
+		nb.ynxt = mathx(all, i, nb.x + 1);
+		color = colorpoint(all->coor, i, nb.x);
+		while ((nb.y + nb.ymth) != nb.ynxt)
 		{
-			fillcoor(coor, splited[all->b], leng);
-			all->b += 1;
+			mlx_put_pixel(all->g_img, nb.x + all->coor[i].gridx, \
+			all->coor[i].gridy + nb.ymth + nb.y, color);
+			if ((nb.y + nb.ymth) < nb.ynxt)
+				++nb.y;
+			else if ((nb.y + nb.ymth) > nb.ynxt)
+				--nb.y;
 		}
-		ft_free(splited);
-		line = get_next_line(fd);
-		all->a += 1;
+		mlx_put_pixel(all->g_img, nb.x + all->coor[i].gridx, \
+		all->coor[i].gridy + nb.ymth + nb.y, color);
+		if (all->coor[i].gridx < all->coor[i + 1].gridx)
+			++nb.x;
+		else
+			--nb.x;
 	}
-	free(line);
-	free(files);
-	close(fd);
 }

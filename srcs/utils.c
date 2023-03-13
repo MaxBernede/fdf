@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 17:53:27 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 19:11:39 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 
 // find diff between the R G B value then *porcent to get color
-int	grad_diff(int rstart, int rend, float pourcent)
+int	grad(int rstart, int rend, float pourcent)
 {
 	int	diff;
 	int	ret;
@@ -50,7 +50,7 @@ int	maxintx(t_all *all, char c)
 		return (maxy + 1);
 }
 
-void	ifprintpixel(coords *coor, mlx_image_t	*g_img, int i)
+void	ifprintpixel(t_coords *coor, mlx_image_t	*g_img, int i)
 {
 	if (coor[i].gridx > 0 && coor[i].gridx < WIDTH && \
 	coor[i].gridy > 0 && coor[i].gridx < HEIGHT)

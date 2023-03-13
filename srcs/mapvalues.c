@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 18:14:17 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 18:51:49 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	getcolorintfromhexa(char *strcolor, t_all *all)
 		all->coor[n].g = hexavalue(strcolor, 4);
 		all->coor[n].b = hexavalue(strcolor, 6);
 	}
-	all->coor[n].color = (all->coor[n].r * 16777216) + (all->coor[n].g * 65536) + \
-	(all->coor[n].b * 256) + 255;
+	all->coor[n].color = (all->coor[n].r * 16777216) + \
+	(all->coor[n].g * 65536) + (all->coor[n].b * 256) + 255;
 }
 
 // fill the coordinates with values and color
@@ -70,7 +70,7 @@ int	fillcoor(t_all *all, char *splited)
 	return (0);
 }
 
-int	fill(t_all *all, char *file)
+void	fill(t_all *all, char *file)
 {
 	int		fd;
 	t_files	f;
@@ -87,7 +87,7 @@ int	fill(t_all *all, char *file)
 		while (f.splited[all->b])
 		{
 			if (fillcoor(all, f.splited[all->b]))
-				return (leave(&f, fd), 1);
+				return (leave(&f, fd));
 			all->b += 1;
 		}
 		ft_free(f.splited);
@@ -97,5 +97,4 @@ int	fill(t_all *all, char *file)
 	free(f.line);
 	free(f.files);
 	close(fd);
-	return (0);
 }

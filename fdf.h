@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 17:54:19 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 19:11:59 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef struct coor
 	int				g;
 	int				b;
 	unsigned int	color;
-}	coords;
+}	t_coords;
 
 typedef struct all
 {
-	coords		*coor;
+	t_coords	*coor;
 	mlx_t		*mlx;
 	mlx_image_t	*g_img;
 	int			nb_lines;
@@ -47,6 +47,14 @@ typedef struct all
 	int			a;
 	int			b;
 }	t_all;
+
+typedef struct nb
+{
+	int	x;
+	int	y;
+	int	ymth;
+	int	ynxt;
+}	t_nb;
 
 typedef struct files
 {
@@ -60,17 +68,17 @@ typedef struct rgb
 	int	r;
 	int	g;
 	int	b;
-}	s_colors;
+}	t_colors;
 
 //colorpoint.c
 uint			colorpointy(t_all *all, int i, int x);
-uint			colorpoint(coords *coor, int i, int x);
+uint			colorpoint(t_coords *coor, int i, int x);
 
 //mapvalues.c
 int				hexavalue(char *c, int x);
 void			getcolorintfromhexa(char *strcolor, t_all *all);
 int				fillcoor(t_all *all, char *splited);
-int				fill(t_all *all, char *file);
+void			fill(t_all *all, char *file);
 
 //grid.c
 void			cleanpositive(t_all *all, int minx, int miny);
@@ -87,15 +95,16 @@ int				main(int argc, char **argv);
 void			hook(void *param);
 
 //second.c
+void			fill_nb(t_all *all, int i, t_nb *nb, char c);
 void			linex(t_all *all, int i);
 void			liney(t_all *all, int i);
 void			gridline(t_all *all);
 int				screen(t_all *all);
 
 //utils.c
-int				grad_diff(int rstart, int rend, float pourcent);
+int				grad(int rstart, int rend, float pourcent);
 int				maxintx(t_all *all, char c);
-void			ifprintpixel(coords *coor, mlx_image_t	*g_img, int i);
+void			ifprintpixel(t_coords *coor, mlx_image_t	*g_img, int i);
 int				hexavalue(char *c, int x);
 void			leave(t_files *f, int fd);
 
