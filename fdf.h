@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:30:01 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:46:22 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct rgb
 }	s_colors;
 
 //colorpoint.c
-uint			colorpointy(coords *coor, int i, int x, s_leng leng);
+uint			colorpointy(t_all *all, int i, int x);
 uint			colorpoint(coords *coor, int i, int x);
 
 //mapvalues.c
@@ -77,8 +77,8 @@ void			fill(t_all *all, char *file);
 void			cleanpositive(t_all *all, int minx, int miny);
 void			cleangridxy(t_all *all);
 void			gridxy(t_all *all);
-int				mathx(coords *coor, int i, int x);
-int				mathy(coords *coor, int i, int x, s_leng leng);
+int				mathx(t_all *all, int i, int x);
+int				mathy(t_all *all, int i, int x);
 
 //main.c
 int				map_data(t_all *all, char *file, int lines);
@@ -88,19 +88,19 @@ int				main(int argc, char **argv);
 void			hook(void *param);
 
 //second.c
-void			linex(mlx_image_t *g_img, coords *coor, int i);
-void			liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng);
-void			gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img);
+void			linex(t_all *all, int i);
+void			liney(t_all *all, int i);
+void			gridline(t_all *all);
 int				screen(t_all *all);
 
 //utils.c
 int				grad_diff(int rstart, int rend, float pourcent);
-int				maxintx(coords *coor, s_leng leng, char c);
+int				maxintx(t_all *all, char c);
 void			ifprintpixel(coords *coor, mlx_image_t	*g_img, int i);
 
 //utils2.c
 int				count_len_map(char *line);
-void			placebackground(mlx_image_t *background);
+void			fill_background(mlx_image_t *background);
 int				returnstr(char *str, int ret);
 void			ft_free(char **str);
 void			check_leaks(void);

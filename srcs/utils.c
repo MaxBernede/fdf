@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 15:44:30 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:36:04 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	grad_diff(int rstart, int rend, float pourcent)
 }
 
 // max value for x or y depending on the input char
-int	maxintx(coords *coor, s_leng leng, char c)
+int	maxintx(t_all *all, char c)
 {
 	int	i;
 	int	max;
@@ -36,12 +36,12 @@ int	maxintx(coords *coor, s_leng leng, char c)
 	i = 0;
 	max = 0;
 	maxy = 0;
-	while (i < (leng.len * leng.lines))
+	while (i < (all->nb_len * all->nb_lines))
 	{
-		if (max < coor[i].gridx)
-			max = coor[i].gridx;
-		if (maxy < coor[i].gridy)
-			maxy = coor[i].gridy;
+		if (max < all->coor[i].gridx)
+			max = all->coor[i].gridx;
+		if (maxy < all->coor[i].gridy)
+			maxy = all->coor[i].gridy;
 		++i;
 	}
 	if (c == 'x')

@@ -6,7 +6,7 @@
 /*   By: mbernede <mbernede@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 15:34:42 by mbernede      #+#    #+#                 */
-/*   Updated: 2023/03/13 15:41:29 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:33:58 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	count_len_map(char *line)
 }
 
 // fill black on background
-void	placebackground(mlx_image_t *background)
+void	fill_background(mlx_image_t *background)
 {
 	int	x;
 	int	y;
