@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:36:04 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:53:27 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,31 @@ void	ifprintpixel(coords *coor, mlx_image_t	*g_img, int i)
 	coor[i].gridy > 0 && coor[i].gridx < HEIGHT)
 		mlx_put_pixel(g_img, coor[i].gridx, coor[i].gridy, \
 		coor[i].color);
+}
+
+// give the decimal value for R G or B
+int	hexavalue(char *c, int x)
+{
+	int		i;
+	int		ret;
+	char	*hexa;
+
+	ret = 0;
+	hexa = "0123456789ABCDEF";
+	i = 0;
+	while (i < 15 && hexa[i] != ft_toupper(c[x]))
+		++i;
+	ret = (i * 16);
+	i = 0;
+	while (i < 15 && hexa[i] != ft_toupper(c[x + 1]))
+		++i;
+	ret += i;
+	return (ret);
+}
+
+void	leave(t_files *f, int fd)
+{
+	free(f->files);
+	ft_free(f->splited);
+	close(fd);
 }

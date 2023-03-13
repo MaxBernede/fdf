@@ -6,7 +6,7 @@
 /*   By: mbernede <mbernede@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 16:22:07 by mbernede      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:22:21 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:58:04 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	hook(void *param)
 {
 	t_all	*all;
-	
+
 	all = param;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(all->mlx);
@@ -30,6 +30,8 @@ void	hook(void *param)
 		all->g_img->instances[0].x -= 25;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT))
 		all->g_img->instances[0].x += 25;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_1))
+		all->zoom += 1;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_0))
-		all->g_img->instances[0].x += 25;
+		all->zoom -= 1;
 }

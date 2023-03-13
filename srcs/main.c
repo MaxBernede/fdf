@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:28:40 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:57:48 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	map_data(t_all *all, char *file, int lines)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	s_leng	leng;
 
-	//atexit(check_leaks);
+	all.zoom = 10;
+	all.height = 100;
 	if (argc != 2)
 		return (returnstr("Number of args incorrect\n", 1));
 	if (map_data(&all, argv[1], 0))
@@ -57,9 +57,11 @@ int	main(int argc, char **argv)
 	all.coor = malloc(sizeof(coords) * all.nb_len * all.nb_lines);
 	if (!all.coor)
 		return (returnstr("Malloc error\n", 1));
-	leng.len = all.nb_len;
-	leng.lines = all.nb_lines;
-	fill(&all, argv[1]);
+	if (fill(&all, argv[1]))
+	{
+		free(all.coor);
+		return (returnstr("Map too big or zoom/height to huge\n", 1));
+	}
 	screen(&all);
 	free(all.coor);
 	return (0);

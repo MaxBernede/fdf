@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:46:22 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:54:19 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ typedef struct all
 	int			b;
 }	t_all;
 
-typedef struct leng
+typedef struct files
 {
-	int	len;
-	int	lines;
-	int	x;
-	int	y;
-}	s_leng;
+	char	**splited;
+	char	*line;
+	char	*files;
+}	t_files;
 
 typedef struct rgb
 {
@@ -70,8 +69,8 @@ uint			colorpoint(coords *coor, int i, int x);
 //mapvalues.c
 int				hexavalue(char *c, int x);
 void			getcolorintfromhexa(char *strcolor, t_all *all);
-void			fillcoor(t_all *all, char *splited);
-void			fill(t_all *all, char *file);
+int				fillcoor(t_all *all, char *splited);
+int				fill(t_all *all, char *file);
 
 //grid.c
 void			cleanpositive(t_all *all, int minx, int miny);
@@ -97,6 +96,8 @@ int				screen(t_all *all);
 int				grad_diff(int rstart, int rend, float pourcent);
 int				maxintx(t_all *all, char c);
 void			ifprintpixel(coords *coor, mlx_image_t	*g_img, int i);
+int				hexavalue(char *c, int x);
+void			leave(t_files *f, int fd);
 
 //utils2.c
 int				count_len_map(char *line);

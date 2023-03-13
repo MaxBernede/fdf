@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   coordcolors.c                                      :+:    :+:            */
+/*   mapvalues.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 11:18:44 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 16:16:47 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:58:09 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include "../libft/libft.h"
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
-
-// give the decimal value for R G or B
-int	hexavalue(char *c, int x)
-{
-	int		i;
-	int		ret;
-	char	*hexa;
-
-	ret = 0;
-	hexa = "0123456789ABCDEF";
-	i = 0;
-	while (i < 15 && hexa[i] != ft_toupper(c[x]))
-		++i;
-	ret = (i * 16);
-	i = 0;
-	while (i < 15 && hexa[i] != ft_toupper(c[x + 1]))
-		++i;
-	ret += i;
-	return (ret);
-}
 
 // fill the colors values
 void	getcolorintfromhexa(char *strcolor, t_all *all)
@@ -66,16 +46,21 @@ void	getcolorintfromhexa(char *strcolor, t_all *all)
 }
 
 // fill the coordinates with values and color
-void	fillcoor(t_all *all, char *splited)
+int	fillcoor(t_all *all, char *splited)
 {
 	char	**intcolor;
 	int		x;
 	int		z;
 	int		n;
+	int		max;
 
-	z = all->a;
 	x = all->b;
+	z = all->a;
 	n = x + (all->nb_len * z);
+	max = n * all->zoom * all->height;
+	//printf("n * zoom * height %d\n", n * all->zoom * all->height);
+	if ((max < 100000000 && max < 0) || (max > 100000000 && max > 0))
+		return (1);
 	intcolor = ft_split(splited, ',');
 	all->coor[n].x = x;
 	all->coor[n].z = z;
@@ -85,34 +70,35 @@ void	fillcoor(t_all *all, char *splited)
 	else
 		getcolorintfromhexa("0xFFFFFF", all);
 	ft_free(intcolor);
+	return (0);
 }
 
-void	fill(t_all *all, char *file)
+int	fill(t_all *all, char *file)
 {
 	int		fd;
-	char	**splited;
-	char	*line;
-	char	*files;
+	t_files	f;
 
-	files = ft_strjoin("./test_maps/", file);
-	fd = open(files, O_RDONLY);
-	line = get_next_line(fd);
+	f.files = ft_strjoin("./test_maps/", file);
+	fd = open(f.files, O_RDONLY);
+	f.line = get_next_line(fd);
 	all->a = 0;
-	while (line)
+	while (f.line)
 	{
 		all->b = 0;
-		splited = ft_split(line, ' ');
-		free(line);
-		while (splited[all->b])
+		f.splited = ft_split(f.line, ' ');
+		free(f.line);
+		while (f.splited[all->b])
 		{
-			fillcoor(all, splited[all->b]);
+			if (fillcoor(all, f.splited[all->b]))
+				return (leave(&f, fd), 1);
 			all->b += 1;
 		}
-		ft_free(splited);
-		line = get_next_line(fd);
+		ft_free(f.splited);
+		f.line = get_next_line(fd);
 		all->a += 1;
 	}
-	free(line);
-	free(files);
+	free(f.line);
+	free(f.files);
 	close(fd);
+	return (0);
 }
