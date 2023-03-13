@@ -6,7 +6,7 @@
 #    By: kyuuh <kyuuh@student.42.fr>                  +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/07 10:45:43 by mbernede      #+#    #+#                  #
-#    Updated: 2023/03/11 14:40:04 by mbernede      ########   odam.nl          #
+#    Updated: 2023/03/13 15:48:58 by mbernede      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS 	:= 		main.c\
 				grid.c\
 				coordcolors.c\
 				colorpoint.c\
+				utils2.c\
 
 RM 		:= 		rm -f
 #CFLAGS	:=		-Wall -Werror -Wextra
@@ -80,7 +81,9 @@ clean:
 
 fclean: 	clean
 	@make -C libft fclean
+	@rm ./MLX42/libmlx42.a
 	@${RM} ${NAME}
+	@echo "$(RED)Full clean done$(RESET)"
 
 re: 	fclean all
 

@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/05 17:49:51 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 19:04:49 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:46:44 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #include "../libft/libft.h"
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
-
-// find diff between the R G B value then *porcent to get color
-int	diffpoint(int rstart, int rend, float pourcent)
-{
-	int	diff;
-	int	ret;
-
-	diff = rstart - rend;
-	ret = rstart - (diff * pourcent / 100);
-	return (ret);
-}
 
 uint	colorpointy(coords *coor, int i, int x, s_leng leng)
 {
@@ -38,9 +27,9 @@ uint	colorpointy(coords *coor, int i, int x, s_leng leng)
 	pourcent = (float)x / m * 100;
 	if (diff)
 	{
-		rgb.r = diffpoint(coor[i].r, coor[i - leng.len].r, pourcent);
-		rgb.g = diffpoint(coor[i].g, coor[i - leng.len].g, pourcent);
-		rgb.b = diffpoint(coor[i].b, coor[i - leng.len].b, pourcent);
+		rgb.r = grad_diff(coor[i].r, coor[i - leng.len].r, pourcent);
+		rgb.g = grad_diff(coor[i].g, coor[i - leng.len].g, pourcent);
+		rgb.b = grad_diff(coor[i].b, coor[i - leng.len].b, pourcent);
 		diff = (rgb.r * 16777216) + (rgb.g * 65536) + (rgb.b * 256) + 255;
 	}
 	else
@@ -61,9 +50,9 @@ uint	colorpoint(coords *coor, int i, int x)
 	pourcent = (float)x / m * 100;
 	if (diff)
 	{
-		rgb.r = diffpoint(coor[i].r, coor[i + 1].r, pourcent);
-		rgb.g = diffpoint(coor[i].g, coor[i + 1].g, pourcent);
-		rgb.b = diffpoint(coor[i].b, coor[i + 1].b, pourcent);
+		rgb.r = grad_diff(coor[i].r, coor[i + 1].r, pourcent);
+		rgb.g = grad_diff(coor[i].g, coor[i + 1].g, pourcent);
+		rgb.b = grad_diff(coor[i].b, coor[i + 1].b, pourcent);
 		diff = (rgb.r * 16777216) + (rgb.g * 65536) + (rgb.b * 256) + 255;
 	}
 	else

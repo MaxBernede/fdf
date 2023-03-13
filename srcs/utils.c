@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/06 00:24:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 12:43:45 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:44:30 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,15 @@
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
-// fill black on background
-void	fillback(mlx_image_t *background)
+// find diff between the R G B value then *porcent to get color
+int	grad_diff(int rstart, int rend, float pourcent)
 {
-	int	x;
-	int	y;
+	int	diff;
+	int	ret;
 
-	y = -1;
-	while (++y < HEIGHT)
-	{
-		x = -1;
-		while (++x < WIDTH)
-			mlx_put_pixel(background, x, y, 0x000000FF);
-	}
+	diff = rstart - rend;
+	ret = rstart - (diff * pourcent / 100);
+	return (ret);
 }
 
 // max value for x or y depending on the input char
@@ -60,19 +56,4 @@ void	ifprintpixel(coords *coor, mlx_image_t	*g_img, int i)
 	coor[i].gridy > 0 && coor[i].gridx < HEIGHT)
 		mlx_put_pixel(g_img, coor[i].gridx, coor[i].gridy, \
 		coor[i].color);
-}
-
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		free(str[i]);
-	free(str);
-}
-
-void	check_leaks(void)
-{
-	system("leaks fdf");
 }

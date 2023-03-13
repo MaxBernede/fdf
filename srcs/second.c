@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 13:34:04 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:42:37 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ int	screen(coords *coor, s_leng leng)
 	mlx_image_t	*background;
 	t_all		all;
 
-	all.zoom = 100;
+	all.zoom = 10;
 	gridxy(coor, leng, all.zoom);
 	all.mlx =  mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!all.mlx)
 		return (0);
 	background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	fillback(background);
+	placebackground(background);
 	mlx_image_to_window(all.mlx, background, 0, 0);
 	all.g_img = mlx_new_image(all.mlx, maxintx(coor, leng, 'x'), \
 	maxintx(coor, leng, 'y'));
