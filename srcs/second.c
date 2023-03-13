@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/20 13:55:23 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 19:15:45 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 13:34:04 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 #include "../fdf.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
-mlx_image_t	*g_img;
-
 void	hook(void *param)
 {
-	mlx_t	*mlx;
-
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		g_img->instances[0].y -= 25;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		g_img->instances[0].y += 25;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		g_img->instances[0].x -= 25;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		g_img->instances[0].x += 25;
-	if (mlx_is_key_down(mlx, MLX_KEY_J))
-		printf("Hello ");
+	t_all	*all;
+	
+	all = param;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(all->mlx);
+	if (mlx_is_key_down(all->mlx, MLX_KEY_UP))
+		all->g_img->instances[0].y -= 25;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_DOWN))
+		all->g_img->instances[0].y += 25;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT))
+		all->g_img->instances[0].x -= 25;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT))
+		all->g_img->instances[0].x += 25;
+	if (mlx_is_key_down(all->mlx, MLX_KEY_0))
+		all->g_img->instances[0].x += 25;
 }
 
 void	linex(mlx_image_t *g_img, coords *coor, int i)
@@ -122,21 +120,22 @@ void	gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img)
 //MAIN FOR MLX42
 int	screen(coords *coor, s_leng leng)
 {
-	mlx_t		*mlx;
 	mlx_image_t	*background;
+	t_all		all;
 
-	gridxy(coor, leng, 10);
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!mlx)
+	all.zoom = 100;
+	gridxy(coor, leng, all.zoom);
+	all.mlx =  mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!all.mlx)
 		return (0);
-	background = mlx_new_image(mlx, WIDTH, HEIGHT);
+	background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
 	fillback(background);
-	mlx_image_to_window(mlx, background, 0, 0);
-	g_img = mlx_new_image(mlx, maxintx(coor, leng, 'x'), \
+	mlx_image_to_window(all.mlx, background, 0, 0);
+	all.g_img = mlx_new_image(all.mlx, maxintx(coor, leng, 'x'), \
 	maxintx(coor, leng, 'y'));
-	mlx_image_to_window(mlx, g_img, 0, 0);
-	gridline(coor, leng, mlx, g_img);
-	mlx_loop_hook(mlx, &hook, mlx);
-	mlx_loop(mlx);
+	mlx_image_to_window(all.mlx, all.g_img, 0, 0);
+	gridline(coor, leng, all.mlx, all.g_img);
+	mlx_loop_hook(all.mlx, &hook, &all);
+	mlx_loop(all.mlx);
 	return (0);
 }

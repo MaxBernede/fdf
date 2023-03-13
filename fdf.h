@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/12 19:15:39 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 13:33:40 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct coor
 	int				b;
 	unsigned int	color;
 }	coords;
+
+typedef struct all
+{
+	mlx_t		*mlx;
+	mlx_image_t	*g_img;
+	int			zoom;
+}	t_all;
 
 typedef struct leng
 {
