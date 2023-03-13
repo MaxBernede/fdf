@@ -6,7 +6,7 @@
 /*   By: kyuuh <kyuuh@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:06:32 by kyuuh         #+#    #+#                 */
-/*   Updated: 2023/03/13 15:45:07 by mbernede      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:55:51 by mbernede      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,33 @@ typedef struct rgb
 	int	b;
 }	s_colors;
 
-void			gridxy(coords *coor, s_leng leng, int scale);
-int				screen(coords *coor, s_leng leng);
-void			gridline(coords *coor, s_leng leng, mlx_t *mlx, mlx_image_t *g_img);
+//colorpoint.c
+uint			colorpointy(coords *coor, int i, int x, s_leng leng);
+uint			colorpoint(coords *coor, int i, int x);
 
+//coordcolors.c
+int				hexavalue(char *c, int x);
+void			getcolorintfromhexa(char *strcolor, coords *coor, s_leng leng);
+void			fillcoor(coords *coor, char *splited, s_leng leng);
+void			fill(coords *coor, char *file, s_leng leng);
+
+//grid.c
+void			cleanpositive(coords *coor, s_leng leng, int minx, int miny);
+void			cleangridxy(coords *coor, s_leng leng);
 void			gridxy(coords *coor, s_leng leng, int scale);
 int				mathx(coords *coor, int i, int x);
 int				mathy(coords *coor, int i, int x, s_leng leng);
 
-void			fill(coords *coor, char *file, s_leng leng);
+//main.c
+int				map_data(t_all *all, char *file, int lines);
+int				main(int argc, char **argv);
 
-unsigned int	colorpointy(coords *coor, int i, int x, s_leng leng);
-unsigned int	colorpoint(coords *coor, int i, int x);
-
+//second.c
+void			hook(void *param);
+void			linex(mlx_image_t *g_img, coords *coor, int i);
+void			liney(mlx_image_t *g_img, coords *coor, int i, s_leng leng);
+void			gridline(coords *coor, s_leng leng, mlx_t	*mlx, mlx_image_t	*g_img);
+int				screen(coords *coor, s_leng leng);
 
 //utils.c
 int				grad_diff(int rstart, int rend, float pourcent);
