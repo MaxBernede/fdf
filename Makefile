@@ -6,7 +6,7 @@
 #    By: kyuuh <kyuuh@student.42.fr>                  +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/07 10:45:43 by mbernede      #+#    #+#                  #
-#    Updated: 2023/03/13 17:59:17 by mbernede      ########   odam.nl          #
+#    Updated: 2023/03/14 15:37:33 by mbernede      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ clean:
 
 fclean: 	clean
 	@make -C libft fclean
-	@rm ./MLX42/libmlx42.a
+	@make -C MLX42 fclean
 	@${RM} ${NAME}
 	@echo "$(RED)Full clean done$(RESET)"
 
